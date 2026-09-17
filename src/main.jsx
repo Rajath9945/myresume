@@ -259,7 +259,9 @@ const PROJECT_GALAXIES = [
 ];
 
 export function App() {
-  const [viewMode, setViewMode] = useState("orrery");
+  const [viewMode, setViewMode] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth < 768 ? "resume" : "orrery"
+  );
   const [phoneCategory, setPhoneCategory] = useState("all");
   const [isPhoneMinimized, setIsPhoneMinimized] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
@@ -1069,11 +1071,17 @@ export function App() {
 
       {/* Header Navigation */}
       <header className="nav">
-        <div className="brand">
+        <div
+          className="brand"
+          onClick={() => setViewMode(window.innerWidth < 768 ? "resume" : "orrery")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="brand-sun-icon" />
           <div>
             <div className="brand-name">RAJATH M</div>
-            <div className="brand-role">INTERPLANETARY PORTFOLIO</div>
+            <div className="brand-role">
+              {viewMode === "orrery" ? "INTERPLANETARY PORTFOLIO" : "RESUME & PORTFOLIO"}
+            </div>
           </div>
         </div>
 
@@ -1081,9 +1089,9 @@ export function App() {
           <span className="nav-tag">BIT CSE • CGPA 8.17</span>
           <button
             className="btn btn-primary"
-            onClick={() => setViewMode(viewMode === "orrery" ? "dossier" : "orrery")}
+            onClick={() => setViewMode(viewMode === "orrery" ? "resume" : "orrery")}
           >
-            {viewMode === "orrery" ? "View Summary Dossier" : "Explore Orrery"}
+            {viewMode === "orrery" ? "📄 View Resume" : "🪐 3D Space View"}
           </button>
           <button className="btn btn-ghost" onClick={() => setIsContactOpen(true)}>
             Contact
@@ -1385,86 +1393,205 @@ export function App() {
         </div>
       )}
 
-      {/* Mode 2: Summary Dossier View */}
-      {viewMode === "dossier" && (
-        <div className="dossier-wrap">
-          <div className="dossier-intro">
-            <h1>Rajath M — Software & AI Engineer</h1>
-            <p>
-              Computer Science student at <strong>Bangalore Institute of Technology (BIT)</strong> with
-              hands-on focus on <strong>Java backend development, Data Structures & Algorithms</strong>, and active
-              AI model fine-tuning as a <strong>Junior AI Intern at ConcierAI</strong>.
+      {/* Mode 2: Clean, Comprehensive Resume View (Mobile Default & Desktop Toggle) */}
+      {(viewMode === "resume" || viewMode === "dossier") && (
+        <main className="resume-wrap">
+          {/* Hero Profile Card */}
+          <section className="resume-hero-card">
+            <div className="resume-hero-top">
+              <div>
+                <span className="resume-badge-accent">Software & AI Engineer</span>
+                <h1 className="resume-name">{PROFILE.name}</h1>
+                <div className="resume-college">
+                  🎓 {PROFILE.college} • {PROFILE.degree}
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="resume-pills-row">
+              <span className="resume-pill">⭐ CGPA: {PROFILE.cgpa}</span>
+              <span className="resume-pill">📅 Batch: {PROFILE.batch}</span>
+              <span className="resume-pill">📍 {PROFILE.location}</span>
+              <span className="resume-pill">💼 Junior AI Intern @ ConcierAI</span>
+            </div>
+
+            <p className="resume-bio">
+              Computer Science student at <strong>Bangalore Institute of Technology</strong> with a strong foundation in <strong>Java backend engineering</strong> (Spring Boot, REST APIs, MySQL), <strong>Data Structures & Algorithms</strong>, and practical applied AI experience fine-tuning models and benchmarking evaluation pipelines as a <strong>Junior AI Intern at ConcierAI</strong>.
             </p>
-            <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
-              <button className="btn btn-primary" onClick={() => setViewMode("orrery")}>
-                Open Orrery View
+
+            {/* Direct Action Buttons */}
+            <div className="resume-actions">
+              <a className="btn btn-primary" href={`mailto:${PROFILE.email}`}>
+                ✉️ Email Rajath
+              </a>
+              <button className="btn btn-ghost" onClick={() => copyText(PROFILE.phone, "Phone number")}>
+                📞 Copy Phone: {PROFILE.phone}
               </button>
-              <button className="btn btn-ghost" onClick={() => copyText(PROFILE.email, "Email")}>
-                Copy {PROFILE.email}
+              <a className="btn btn-ghost" href={PROFILE.github} target="_blank" rel="noreferrer">
+                🐙 GitHub
+              </a>
+              <a className="btn btn-ghost" href={PROFILE.linkedin} target="_blank" rel="noreferrer">
+                💼 LinkedIn
+              </a>
+            </div>
+
+            {/* Interactive Space Orrery Banner */}
+            <div className="resume-space-banner">
+              <div>
+                <strong>🪐 Looking for the 3D Space Experience?</strong>
+                <p>Explore an interactive celestial solar system with orbiting planets and galaxies.</p>
+              </div>
+              <button className="btn btn-primary" onClick={() => setViewMode("orrery")}>
+                Launch 3D Space View ↗
               </button>
             </div>
-          </div>
+          </section>
 
-          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
-            The Sun: Academic Degree
-          </h2>
-          <div className="card" style={{ marginBottom: "26px" }}>
-            <h3>{SUN_DEGREE.name}</h3>
-            <div className="card-sub">{SUN_DEGREE.subtitle} • {SUN_DEGREE.meta}</div>
-            <p>{SUN_DEGREE.summary}</p>
-          </div>
+          {/* Section 1: Work Experience / AI Internship */}
+          <section className="resume-section">
+            <div className="resume-section-header">
+              <span className="resume-section-icon">💼</span>
+              <h2 className="resume-section-title">Work Experience</h2>
+              <span className="resume-section-count">AI Internship</span>
+            </div>
 
-          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
-            The Black Hole: AI Internship
-          </h2>
-          <div className="card" style={{ marginBottom: "26px" }}>
-            <h3>🕳️ {BLACK_HOLE_INTERNSHIP.name}</h3>
-            <div className="card-sub">{BLACK_HOLE_INTERNSHIP.subtitle} • {BLACK_HOLE_INTERNSHIP.meta}</div>
-            <p>{BLACK_HOLE_INTERNSHIP.summary}</p>
-          </div>
-
-          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
-            Planets: Technical Skills
-          </h2>
-          <div className="dossier-grid">
-            {PLANETS.map((p) => (
-              <div
-                key={p.id}
-                className="card"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setSelectedItem(p);
-                  setViewMode("orrery");
-                }}
-              >
-                <h3>{p.name}</h3>
-                <div className="card-sub">{p.meta}</div>
-                <p>{p.summary}</p>
+            <div className="resume-card highlight-card">
+              <div className="resume-card-head">
+                <div>
+                  <h3 className="resume-card-heading">{BLACK_HOLE_INTERNSHIP.name}</h3>
+                  <div className="resume-card-sub">{BLACK_HOLE_INTERNSHIP.subtitle}</div>
+                </div>
+                <span className="resume-card-meta">{BLACK_HOLE_INTERNSHIP.meta}</span>
               </div>
-            ))}
-          </div>
-
-          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
-            Working Project Galaxies
-          </h2>
-          <div className="dossier-grid">
-            {PROJECT_GALAXIES.map((g) => (
-              <div
-                key={g.id}
-                className="card"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setSelectedItem(g);
-                  setViewMode("orrery");
-                }}
-              >
-                <h3>🌌 {g.name}</h3>
-                <div className="card-sub">{g.category} • {g.techs.join(", ")}</div>
-                <p>{g.summary}</p>
+              <p className="resume-card-desc">{BLACK_HOLE_INTERNSHIP.summary}</p>
+              <div className="resume-tags">
+                <span className="resume-tag">Model Fine-Tuning</span>
+                <span className="resume-tag">Evaluation Benchmarks</span>
+                <span className="resume-tag">Dataset Curation</span>
+                <span className="resume-tag">Prompt Engineering</span>
+                <span className="resume-tag">Latency Optimization</span>
               </div>
-            ))}
-          </div>
-        </div>
+              <ul className="resume-bullets">
+                {BLACK_HOLE_INTERNSHIP.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Section 2: Education & Foundations */}
+          <section className="resume-section">
+            <div className="resume-section-header">
+              <span className="resume-section-icon">🎓</span>
+              <h2 className="resume-section-title">Education</h2>
+              <span className="resume-section-count">Degree & Leadership</span>
+            </div>
+
+            <div className="resume-card">
+              <div className="resume-card-head">
+                <div>
+                  <h3 className="resume-card-heading">{SUN_DEGREE.name}</h3>
+                  <div className="resume-card-sub">{SUN_DEGREE.subtitle}</div>
+                </div>
+                <span className="resume-card-meta">{SUN_DEGREE.meta}</span>
+              </div>
+              <p className="resume-card-desc">{SUN_DEGREE.summary}</p>
+              <div className="resume-tags">
+                <span className="resume-tag">Data Structures & Algorithms</span>
+                <span className="resume-tag">Operating Systems</span>
+                <span className="resume-tag">DBMS</span>
+                <span className="resume-tag">Computer Networks</span>
+                <span className="resume-tag">OOP</span>
+              </div>
+              <ul className="resume-bullets">
+                {SUN_DEGREE.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Section 3: Technical Skills */}
+          <section className="resume-section">
+            <div className="resume-section-header">
+              <span className="resume-section-icon">⚡</span>
+              <h2 className="resume-section-title">Technical Skills</h2>
+              <span className="resume-section-count">6 Core Disciplines</span>
+            </div>
+
+            <div className="resume-skills-grid">
+              {PLANETS.map((p) => (
+                <div key={p.id} className="resume-skill-card">
+                  <div className="resume-skill-top">
+                    <span className="resume-skill-dot" style={{ background: p.color }} />
+                    <h3 className="resume-skill-title">{p.name}</h3>
+                  </div>
+                  <div className="resume-skill-meta">{p.meta}</div>
+                  <p className="resume-skill-desc">{p.summary}</p>
+                  <div className="resume-tags">
+                    {p.techs?.map((t) => (
+                      <span key={t} className="resume-tag">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 4: Working Projects */}
+          <section className="resume-section">
+            <div className="resume-section-header">
+              <span className="resume-section-icon">🚀</span>
+              <h2 className="resume-section-title">Working Projects</h2>
+              <span className="resume-section-count">4 Applications</span>
+            </div>
+
+            <div className="resume-projects-grid">
+              {PROJECT_GALAXIES.map((g) => (
+                <div key={g.id} className="resume-card">
+                  <div className="resume-card-head">
+                    <div>
+                      <h3 className="resume-card-heading">{g.name}</h3>
+                      <div className="resume-card-sub">{g.category}</div>
+                    </div>
+                  </div>
+                  <p className="resume-card-desc">{g.summary}</p>
+                  <div className="resume-tags">
+                    {g.techs.map((t) => (
+                      <span key={t} className="resume-tag">{t}</span>
+                    ))}
+                  </div>
+                  <ul className="resume-bullets">
+                    {g.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 5: Direct Contact */}
+          <section className="resume-section">
+            <div className="resume-card" style={{ textAlign: "center", padding: "30px 20px" }}>
+              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "20px", marginBottom: "8px" }}>
+                Ready to Connect?
+              </h3>
+              <p style={{ color: "var(--text-muted)", fontSize: "14px", maxWidth: "520px", margin: "0 auto 20px" }}>
+                Feel free to reach out for software engineering opportunities, Java backend development, or applied AI roles.
+              </p>
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
+                <a className="btn btn-primary" href={`mailto:${PROFILE.email}`}>
+                  ✉️ Send Email
+                </a>
+                <button className="btn btn-ghost" onClick={() => copyText(PROFILE.phone, "Phone number")}>
+                  📞 Copy Phone ({PROFILE.phone})
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
       )}
 
       {/* Contact modal */}
