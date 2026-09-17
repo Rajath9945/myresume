@@ -39,8 +39,8 @@ const BLACK_HOLE_INTERNSHIP = {
   name: "Junior AI Intern — ConcierAI",
   subtitle: "ConcierAI • Model Fine-Tuning & Evaluation",
   meta: "2026 – Present • AI Engineering",
-  x: -370,
-  y: -130,
+  x: -325,
+  y: -155,
   radius: 25,
   summary:
     "Active internship at ConcierAI working directly on applied AI systems: fine-tuning models, building benchmark evaluation pipelines, and curating dataset workflows.",
@@ -657,9 +657,6 @@ export function App() {
       ctx.font = "bold 11px Orbitron, sans-serif";
       ctx.textAlign = "center";
       ctx.fillText("B.E. DEGREE (BIT)", 0, sunRad + 16);
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "9px JetBrains Mono, monospace";
-      ctx.fillText("CGPA 8.17", 0, sunRad + 28);
 
       // 6. Draw THE REALISTIC BLACK HOLE (ConcierAI Gravitational Singularity)
       const bh = targets.blackhole;
@@ -791,9 +788,6 @@ export function App() {
       ctx.font = "bold 11px JetBrains Mono, monospace";
       ctx.textAlign = "center";
       ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 26);
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "9px JetBrains Mono, monospace";
-      ctx.fillText("[Gravitational Singularity]", bh.x, bh.y + bh.radius + 38);
 
       // 7. Draw PLANETS (Core Skills)
       PLANETS.forEach((p) => {
@@ -984,15 +978,11 @@ export function App() {
         ctx.restore(); // restores rotation
         ctx.restore(); // restores translation
 
-        // F. Realistic galaxy identification label & morphology
+        // F. Realistic galaxy identification label
         ctx.fillStyle = isSelected || isHovered ? "#ffffff" : "#cbd5e1";
         ctx.font = "bold 11px JetBrains Mono, monospace";
         ctx.textAlign = "center";
         ctx.fillText(`🌌 ${g.name}`, g.x, g.y + g.size * g.tilt + 17);
-
-        ctx.fillStyle = isSelected ? "#38bdf8" : "#94a3b8";
-        ctx.font = "9px JetBrains Mono, monospace";
-        ctx.fillText(`[${g.morphology}]`, g.x, g.y + g.size * g.tilt + 29);
       });
 
       ctx.restore();
