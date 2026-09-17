@@ -262,6 +262,7 @@ export function App() {
   const [viewMode, setViewMode] = useState("orrery");
   const [phoneCategory, setPhoneCategory] = useState("all");
   const [isPhoneMinimized, setIsPhoneMinimized] = useState(false);
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [phoneTime, setPhoneTime] = useState(() =>
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
   );
@@ -525,8 +526,14 @@ export function App() {
       ctx.save();
       ctx.clearRect(0, 0, width, height);
 
-      // Permanently centered, fixed scale (no moving or zooming)
+      // Permanently centered, with smart auto-fit scale for mobile/desktop viewports
       ctx.translate(width / 2, height / 2);
+      const isMobile = width < 768;
+      const baseFitW = isMobile ? 860 : 940;
+      const baseFitH = isMobile ? 740 : 700;
+      const scale = Math.max(Math.min(1.0, width / baseFitW, height / baseFitH), 0.38);
+      canvas._scale = scale;
+      ctx.scale(scale, scale);
 
       const tilt = 0.65; // gentle 3D isometric inclination
 
@@ -997,32 +1004,38 @@ export function App() {
     };
   }, [viewMode]); // Clean dependency: NEVER reset on hover!
 
-  // Mouse move hover detection on static centered canvas
+  // Target detection with scale-awareness for desktop and mobile touch
+  const getTargetAtPoint = (clientX, clientY) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+
+    const rect = canvas.getBoundingClientRect();
+    const mx = clientX - rect.left;
+    const my = clientY - rect.top;
+
+    const scale = canvas._scale || 1.0;
+    const wx = (mx - canvas.width / 2) / scale;
+    const wy = (my - canvas.height / 2) / scale;
+
+    const targets = canvas._targets;
+    if (!targets) return null;
+
+    const hitPadding = scale < 0.75 ? 22 : 14;
+    for (const key of Object.keys(targets)) {
+      const item = targets[key];
+      const d = Math.hypot(wx - item.x, wy - item.y);
+      if (d <= item.radius + hitPadding) {
+        return item.data;
+      }
+    }
+    return null;
+  };
+
   const onMouseMove = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-
-    // Centered coordinates relative to canvas center
-    const wx = mx - canvas.width / 2;
-    const wy = my - canvas.height / 2;
-
-    const targets = canvas._targets;
-    if (!targets) return;
-
-    let found = null;
-    for (const key of Object.keys(targets)) {
-      const item = targets[key];
-      const d = Math.hypot(wx - item.x, wy - item.y);
-      if (d <= item.radius + 12) {
-        found = item.data;
-        break;
-      }
-    }
-
+    const found = getTargetAtPoint(e.clientX, e.clientY);
     canvas.style.cursor = found ? "pointer" : "default";
 
     if (found?.id !== hoveredIdRef.current) {
@@ -1031,9 +1044,22 @@ export function App() {
     }
   };
 
-  const onClick = () => {
-    if (hoveredItem) {
-      setSelectedItem(hoveredItem);
+  const onClick = (e) => {
+    const found = getTargetAtPoint(e.clientX, e.clientY) || hoveredItem;
+    if (found) {
+      setSelectedItem(found);
+      setIsMobileDrawerOpen(false);
+    }
+  };
+
+  const onTouchEnd = (e) => {
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      const t = e.changedTouches[0];
+      const found = getTargetAtPoint(t.clientX, t.clientY);
+      if (found) {
+        setSelectedItem(found);
+        setIsMobileDrawerOpen(false);
+      }
     }
   };
 
@@ -1073,11 +1099,26 @@ export function App() {
             className="space-canvas"
             onMouseMove={onMouseMove}
             onClick={onClick}
+            onTouchEnd={onTouchEnd}
           />
 
-          {/* Phone-Style System Directory Device */}
-          <aside className={`phone-device ${isPhoneMinimized ? "minimized" : ""}`}>
-            {/* Hardware buttons on phone edges */}
+          {/* Phone-Style System Directory Device (Desktop: Floating Smartphone / Mobile: Native Slide-Up Bottom Sheet) */}
+          <aside className={`phone-device ${isPhoneMinimized ? "minimized" : ""} ${isMobileDrawerOpen ? "drawer-open" : ""}`}>
+            {/* Mobile Drawer Pull Handle (Visible on mobile screens) */}
+            <div
+              className="phone-drawer-handle-bar"
+              onClick={() => setIsMobileDrawerOpen(!isMobileDrawerOpen)}
+            >
+              <div className="phone-drawer-pill" />
+              <div className="phone-drawer-peek-row">
+                <span className="phone-drawer-peek-title">🪐 System Directory</span>
+                <span className="phone-drawer-peek-action">
+                  {isMobileDrawerOpen ? "Close ▼" : "12 Nodes • Tap to Open ▲"}
+                </span>
+              </div>
+            </div>
+
+            {/* Hardware buttons on phone edges (desktop view) */}
             <div className="phone-hw-btn phone-btn-vol-up" />
             <div className="phone-hw-btn phone-btn-vol-down" />
             <div
@@ -1110,7 +1151,10 @@ export function App() {
                   </div>
                   <button
                     className="phone-minimize-btn"
-                    onClick={() => setIsPhoneMinimized(true)}
+                    onClick={() => {
+                      setIsPhoneMinimized(true);
+                      setIsMobileDrawerOpen(false);
+                    }}
                     title="Minimize Phone"
                   >
                     –
@@ -1146,7 +1190,10 @@ export function App() {
                     {/* Sun */}
                     <div
                       className={`phone-row-item ${selectedItem?.id === "sun" ? "active" : ""}`}
-                      onClick={() => setSelectedItem(SUN_DEGREE)}
+                      onClick={() => {
+                        setSelectedItem(SUN_DEGREE);
+                        setIsMobileDrawerOpen(false);
+                      }}
                     >
                       <div className="phone-row-icon sun-icon">☀️</div>
                       <div className="phone-row-info">
@@ -1159,7 +1206,10 @@ export function App() {
                     {/* Black Hole */}
                     <div
                       className={`phone-row-item ${selectedItem?.id === "blackhole" ? "active" : ""}`}
-                      onClick={() => setSelectedItem(BLACK_HOLE_INTERNSHIP)}
+                      onClick={() => {
+                        setSelectedItem(BLACK_HOLE_INTERNSHIP);
+                        setIsMobileDrawerOpen(false);
+                      }}
                     >
                       <div className="phone-row-icon blackhole-icon">🕳️</div>
                       <div className="phone-row-info">
@@ -1188,7 +1238,10 @@ export function App() {
                         <div
                           key={p.id}
                           className={`phone-row-item ${selectedItem?.id === p.id ? "active" : ""}`}
-                          onClick={() => setSelectedItem(p)}
+                          onClick={() => {
+                            setSelectedItem(p);
+                            setIsMobileDrawerOpen(false);
+                          }}
                         >
                           <div
                             className="phone-row-icon planet-icon"
@@ -1215,7 +1268,10 @@ export function App() {
                       <div
                         key={g.id}
                         className={`phone-row-item ${selectedItem?.id === g.id ? "active" : ""}`}
-                        onClick={() => setSelectedItem(g)}
+                        onClick={() => {
+                          setSelectedItem(g);
+                          setIsMobileDrawerOpen(false);
+                        }}
                       >
                         <div
                           className="phone-row-icon galaxy-icon"

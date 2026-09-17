@@ -213,6 +213,11 @@ button {
   background: var(--cyan);
 }
 
+/* Mobile Drawer Handle (Hidden on Desktop) */
+.phone-drawer-handle-bar {
+  display: none;
+}
+
 /* Inner Phone Screen Display */
 .phone-screen {
   width: 100%;
@@ -749,18 +754,131 @@ button {
   z-index: 120;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 768px) {
+  /* Phone Device transforms into a Native Slide-Up Bottom Sheet Drawer */
   .phone-device {
-    transform: scale(0.92);
-    transform-origin: top left;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 72vh;
+    max-height: 72vh;
+    border-radius: 24px 24px 0 0;
+    border: 1.5px solid var(--panel-border);
+    border-bottom: none;
+    transform: translateY(calc(100% - 50px));
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.85);
+    z-index: 60;
   }
-}
 
-@media (max-width: 600px) {
-  .phone-device:not(.minimized) {
-    left: 10px;
-    width: calc(100vw - 20px);
-    max-width: 320px;
-    height: 460px;
+  .phone-device.drawer-open {
+    transform: translateY(0);
+    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(6, 182, 212, 0.2);
+  }
+
+  /* Handle bar visible at top of mobile bottom sheet */
+  .phone-drawer-handle-bar {
+    display: block;
+    padding: 8px 16px 8px;
+    background: rgba(15, 23, 42, 0.98);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .phone-drawer-pill {
+    width: 42px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    margin: 0 auto 6px;
+  }
+
+  .phone-drawer-peek-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .phone-drawer-peek-title {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--cyan);
+  }
+
+  .phone-drawer-peek-action {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: #94a3b8;
+  }
+
+  /* Hide physical hardware buttons on mobile */
+  .phone-hw-btn {
+    display: none;
+  }
+
+  .phone-screen {
+    border-radius: 20px 20px 0 0;
+    border: none;
+  }
+
+  /* Hide status bar on phone screens to avoid duplicating user's real phone status bar */
+  .phone-status-bar {
+    display: none;
+  }
+
+  .phone-dock-pill {
+    display: none;
+  }
+
+  /* Mobile Detail Card Modal */
+  .detail-card {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 24px 24px 0 0;
+    border-bottom: none;
+    z-index: 90;
+    box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(6, 182, 212, 0.35);
+    animation: slideUpMobile 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Compact top navbar on phone */
+  .nav {
+    padding: 8px 14px;
+  }
+  .brand-name {
+    font-size: 13px;
+  }
+  .brand-role {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .nav-tag {
+    display: none;
+  }
+  .nav-right {
+    gap: 6px;
+  }
+  .nav-right .btn {
+    padding: 5px 9px;
+    font-size: 10.5px;
   }
 }
