@@ -17,20 +17,39 @@ const PROFILE = {
 
 const SUN_DEGREE = {
   id: "sun",
-  type: "Degree & Core Foundation",
+  type: "Academic Foundation",
   name: "B.E. Computer Science & Engineering",
-  subtitle: "Bangalore Institute of Technology",
-  meta: "CGPA 8.17 / 10 • 2023–2027",
+  subtitle: "Bangalore Institute of Technology (BIT)",
+  meta: "CGPA 8.17 / 10 • Batch 2023–2027",
   summary:
     "The central foundation powering all engineering skills. Grounded in core computer science theory: Data Structures, Operating Systems, Database Systems, Computer Networks, and Object-Oriented Software Design.",
   bullets: [
     "Bangalore Institute of Technology (BIT), batch of 2023–2027",
-    "Strong academic standing with an 8.17 / 10 CGPA",
-    "Leading student developer activities as BIT Code Club Team Lead",
-    "Paper selected for presentation at an IEEE conference in Mysore",
+    "Strong academic performance with an 8.17 / 10 CGPA",
+    "Core coursework in Algorithms, OS, DBMS, Networks, and OOP",
+    "Student leader coordinating problem-solving activities as Code Club Team Lead",
   ],
   radius: 34,
   color: "#f59e0b",
+};
+
+const BLACK_HOLE_INTERNSHIP = {
+  id: "blackhole",
+  type: "AI Internship",
+  name: "Junior AI Intern — ConcierAI",
+  subtitle: "ConcierAI • Model Fine-Tuning & Evaluation",
+  meta: "2026 – Present • AI Engineering",
+  x: -360,
+  y: -220,
+  radius: 24,
+  summary:
+    "Active internship at ConcierAI working directly on applied AI systems: fine-tuning models, building benchmark evaluation pipelines, and curating dataset workflows.",
+  bullets: [
+    "Model fine-tuning workflows and metric evaluation benchmarks",
+    "Dataset curation, data cleaning, and validation pipelines",
+    "Prompt engineering and model performance optimization",
+    "Hands-on debugging of latency and inference behavior",
+  ],
 };
 
 const PLANETS = [
@@ -39,8 +58,8 @@ const PLANETS = [
     type: "Backend Skill",
     name: "Java & Backend",
     meta: "Spring Boot • REST • MySQL",
-    orbitRadius: 110,
-    speed: 0.00035, // extremely slow
+    orbitRadius: 105,
+    speed: 0.0003, // slow, peaceful orbit
     radius: 14,
     color: "#f97316",
     hasRing: true,
@@ -57,17 +76,17 @@ const PLANETS = [
     id: "ai",
     type: "AI Skill",
     name: "AI & Machine Learning",
-    meta: "ConcierAI Intern • CNN • Python",
-    orbitRadius: 165,
-    speed: 0.00028,
+    meta: "Deep Learning • CNN • Python",
+    orbitRadius: 155,
+    speed: 0.00024,
     radius: 13,
     color: "#a855f7",
     techs: ["Python", "CNN", "Fine-Tuning", "Flask", "OpenCV"],
     summary:
-      "Hands-on AI/ML workflows gained through work as a Junior AI Intern at ConcierAI and independent computer vision projects.",
+      "Practical AI and deep learning workflows including computer vision, CNN architectures, and inference microservices.",
     bullets: [
-      "Model fine-tuning pipelines and benchmark evaluation",
       "Convolutional Neural Networks (CNNs) for image & video classification",
+      "Model fine-tuning pipelines and benchmark evaluation",
       "Data preprocessing, clean test sets, and metric tracking",
     ],
   },
@@ -76,8 +95,8 @@ const PLANETS = [
     type: "Core CS Skill",
     name: "Data Structures & DSA",
     meta: "Trees • Graphs • Dynamic Programming",
-    orbitRadius: 220,
-    speed: 0.00022,
+    orbitRadius: 205,
+    speed: 0.00019,
     radius: 12,
     color: "#06b6d4",
     techs: ["Arrays", "Trees", "Graphs", "DP", "Complexity"],
@@ -94,8 +113,8 @@ const PLANETS = [
     type: "Database Skill",
     name: "Database Systems & SQL",
     meta: "MySQL • Relational Schema • ACID",
-    orbitRadius: 275,
-    speed: 0.00018,
+    orbitRadius: 255,
+    speed: 0.00015,
     radius: 11,
     color: "#eab308",
     techs: ["MySQL", "Schema Design", "Queries", "Indexing", "Normalization"],
@@ -112,8 +131,8 @@ const PLANETS = [
     type: "Hardware & Edge",
     name: "IoT & Embedded Logic",
     meta: "Sensors • Embedded C • Automation",
-    orbitRadius: 330,
-    speed: 0.00014,
+    orbitRadius: 305,
+    speed: 0.00012,
     radius: 11,
     color: "#10b981",
     techs: ["Embedded C", "Sensors", "Microcontrollers", "Automation"],
@@ -130,8 +149,8 @@ const PLANETS = [
     type: "DevOps & Tools",
     name: "DevOps & Tools",
     meta: "Git • Linux CLI • Jenkins",
-    orbitRadius: 385,
-    speed: 0.00011,
+    orbitRadius: 355,
+    speed: 0.00009,
     radius: 12,
     color: "#94a3b8",
     hasRing: true,
@@ -146,92 +165,75 @@ const PLANETS = [
   },
 ];
 
-const PROJECT_STARS = [
+const PROJECT_GALAXIES = [
   {
     id: "proj-loan",
-    type: "Project Star",
+    type: "Working Project",
     name: "Loan Management Backend",
-    category: "Backend Engine",
+    category: "Active Backend Service",
     techs: ["Java", "Spring Boot", "MySQL", "REST API"],
-    x: -360,
-    y: -230,
+    x: 370,
+    y: -210,
     color: "#60a5fa",
     summary:
-      "A clean REST API backend built to handle customer profiles, loan applications, verification workflows, and repayment schedules.",
+      "A complete REST backend orchestrating loan applications, customer profiles, validation logic, and repayment schedules.",
     bullets: [
-      "Separation of concerns using Controller, Service, and Repository layers",
-      "Relational database connectivity with MySQL and parameterized queries",
-      "Custom business validation logic for eligibility scoring and loan amortization",
-      "Centralized error handling and clean JSON API responses",
+      "Clean multi-tier architecture: Controller, Service, and Repository",
+      "MySQL database connectivity with parameterized queries & transactional logic",
+      "Custom business validation logic for eligibility scoring and amortization",
+      "Centralized error handling with standardized JSON response payloads",
     ],
   },
   {
     id: "proj-ai",
-    type: "Project Star",
+    type: "Working Project",
     name: "AI Real-Time Monitoring",
-    category: "Computer Vision",
+    category: "Live Computer Vision",
     techs: ["Python", "Flask", "CNN", "OpenCV"],
-    x: 360,
-    y: -210,
+    x: 380,
+    y: 220,
     color: "#f472b6",
     summary:
-      "A deep learning monitoring application that analyzes live video feeds to gauge student attention and facial engagement.",
+      "Deep learning monitoring tool processing live video streams to measure student attention and engagement levels in real time.",
     bullets: [
       "Custom CNN model trained for expression and gaze classification",
-      "Frame-efficient OpenCV video processing maintaining 30+ FPS",
-      "Flask backend serving real-time analytics to a dashboard",
-      "Session summaries to review overall engagement metrics",
+      "High-throughput OpenCV video processing maintaining 30+ FPS",
+      "Flask microservice backend delivering real-time telemetry",
+      "Structured summary reports generated at session end",
     ],
   },
   {
     id: "proj-light",
-    type: "Project Star",
+    type: "Working Project",
     name: "Smart Autonomous Streetlight",
-    category: "IoT System",
+    category: "IoT Hardware Prototype",
     techs: ["IoT", "Embedded C", "Sensors", "Hardware"],
-    x: 370,
-    y: 240,
+    x: -370,
+    y: 220,
     color: "#4ade80",
     summary:
       "An automated street lighting prototype that dims during inactivity and brightens when approaching traffic or pedestrians are detected.",
     bullets: [
       "Ambient light sensor and IR proximity sensors integrated with a microcontroller",
       "Standby mode operates at 20% power, instantly ramping to 100% on motion",
-      "Demonstrates up to 60% energy savings compared to timer-based lighting",
-    ],
-  },
-  {
-    id: "proj-ieee",
-    type: "Research Star",
-    name: "IEEE Conference Selection",
-    category: "Academic Paper",
-    techs: ["Machine Learning", "Research Paper", "Mysore Venue"],
-    x: -350,
-    y: 220,
-    color: "#fde047",
-    summary:
-      "An original research paper on applied machine learning selected for oral presentation at an IEEE international conference in Mysore.",
-    bullets: [
-      "Peer-reviewed by an IEEE technical program committee",
-      "Focuses on practical machine learning models and experimental evaluation",
-      "Selected for formal conference presentation",
+      "Demonstrates up to 60% energy savings compared to static streetlamps",
     ],
   },
   {
     id: "proj-club",
-    type: "Leadership Star",
+    type: "Working Project",
     name: "BIT Code Club Platform",
-    category: "Team Leadership",
+    category: "Developer Community",
     techs: ["Java", "DSA Mentorship", "Contest Design"],
     x: 0,
     y: -360,
-    color: "#a78bfa",
+    color: "#c084fc",
     summary:
-      "Student coding initiative at Bangalore Institute of Technology where Rajath leads technical workshops and problem-solving contests.",
+      "Student coding platform and mentorship program at Bangalore Institute of Technology where Rajath coordinates technical problem-solving.",
     bullets: [
       "Weekly algorithmic problem discussions on Trees, Graphs, and DP",
-      "Mentored junior engineers on coding fundamentals and debugging",
-      "Coordinated campus programming contests and peer reviews",
+      "Mentoring junior students on programming fundamentals and debugging",
+      "Coordinating campus programming contests and peer reviews",
     ],
   },
 ];
@@ -245,6 +247,9 @@ export function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   const canvasRef = useRef(null);
+  const hoveredIdRef = useRef(null);
+
+  // Persistent camera state
   const cameraRef = useRef({
     x: 0,
     y: 0,
@@ -257,16 +262,30 @@ export function App() {
     lastY: 0,
   });
 
+  // Persistent orbital angles — NEVER reset on hover or re-render
+  const anglesRef = useRef({
+    java: 0.5,
+    ai: 1.8,
+    dsa: 3.2,
+    sql: 4.5,
+    iot: 5.6,
+    tools: 0.9,
+    blackholeRotation: 0,
+    galaxyRotation: 0,
+  });
+
   const backgroundStarsRef = useRef([]);
 
+  // Generate realistic space background once on mount
   useEffect(() => {
     const stars = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 220; i++) {
       stars.push({
-        x: (Math.random() - 0.5) * 2400,
-        y: (Math.random() - 0.5) * 2400,
-        size: Math.random() * 1.8 + 0.4,
-        alpha: Math.random() * 0.6 + 0.2,
+        x: (Math.random() - 0.5) * 2600,
+        y: (Math.random() - 0.5) * 2600,
+        size: Math.random() * 1.6 + 0.3,
+        alpha: Math.random() * 0.7 + 0.15,
+        color: Math.random() > 0.8 ? "#93c5fd" : Math.random() > 0.6 ? "#fde68a" : "#ffffff",
       });
     }
     backgroundStarsRef.current = stars;
@@ -286,7 +305,7 @@ export function App() {
     }
   };
 
-  // Canvas loop
+  // Main canvas rendering loop
   useEffect(() => {
     if (viewMode !== "orrery") return;
 
@@ -295,11 +314,6 @@ export function App() {
     const ctx = canvas.getContext("2d");
 
     let animationId;
-    let angles = {};
-    PLANETS.forEach((p) => {
-      angles[p.id] = Math.random() * Math.PI * 2;
-    });
-
     let pulseTick = 0;
 
     const resize = () => {
@@ -313,6 +327,7 @@ export function App() {
       const { width, height } = canvas;
       const cam = cameraRef.current;
 
+      // Smooth camera interpolation
       cam.x += (cam.targetX - cam.x) * 0.08;
       cam.y += (cam.targetY - cam.y) * 0.08;
       cam.zoom += (cam.targetZoom - cam.zoom) * 0.08;
@@ -323,17 +338,19 @@ export function App() {
       ctx.translate(width / 2 + cam.x, height / 2 + cam.y);
       ctx.scale(cam.zoom, cam.zoom);
 
-      const tilt = 0.65; // realistic view angle
+      const tilt = 0.65; // gentle 3D isometric inclination
 
-      // 1. Background stars
+      // 1. Deep space background stars
       backgroundStarsRef.current.forEach((s) => {
-        ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = s.alpha;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
         ctx.fill();
       });
+      ctx.globalAlpha = 1;
 
-      // 2. Orbital rings
+      // 2. Orbital rings for planets
       PLANETS.forEach((p) => {
         const isHovered = hoveredItem?.id === p.id;
         const isSelected = selectedItem?.id === p.id;
@@ -344,38 +361,49 @@ export function App() {
           ? "rgba(6, 182, 212, 0.6)"
           : isHovered
           ? "rgba(6, 182, 212, 0.35)"
-          : "rgba(255, 255, 255, 0.08)";
+          : "rgba(255, 255, 255, 0.07)";
         ctx.lineWidth = isSelected || isHovered ? 1.5 : 1;
         ctx.stroke();
       });
 
-      // 3. Update slow angles
+      // 3. Increment orbital angles steadily (never reset on hover)
       if (!isPaused) {
         PLANETS.forEach((p) => {
-          angles[p.id] += p.speed; // naturally very slow
+          anglesRef.current[p.id] += p.speed;
         });
+        anglesRef.current.blackholeRotation += 0.008;
+        anglesRef.current.galaxyRotation += 0.006;
       }
       pulseTick += 0.02;
 
       // 4. Calculate hit targets
       const targets = {};
-
       targets.sun = { x: 0, y: 0, radius: SUN_DEGREE.radius, data: SUN_DEGREE };
 
+      // Planet coordinates
       PLANETS.forEach((p) => {
-        const a = angles[p.id];
+        const a = anglesRef.current[p.id];
         const px = Math.cos(a) * p.orbitRadius;
         const py = Math.sin(a) * p.orbitRadius * tilt;
         targets[p.id] = { x: px, y: py, radius: p.radius, data: p };
       });
 
-      PROJECT_STARS.forEach((s) => {
-        targets[s.id] = { x: s.x, y: s.y, radius: 14, data: s };
+      // Black hole coordinates
+      targets.blackhole = {
+        x: BLACK_HOLE_INTERNSHIP.x,
+        y: BLACK_HOLE_INTERNSHIP.y,
+        radius: BLACK_HOLE_INTERNSHIP.radius,
+        data: BLACK_HOLE_INTERNSHIP,
+      };
+
+      // Project Galaxies coordinates
+      PROJECT_GALAXIES.forEach((g) => {
+        targets[g.id] = { x: g.x, y: g.y, radius: 24, data: g };
       });
 
       canvas._targets = targets;
 
-      // 5. Draw Sun (The Degree)
+      // 5. Draw THE SUN (Academic Degree Core)
       const sunPulse = 1 + Math.sin(pulseTick) * 0.03;
       const sunRad = SUN_DEGREE.radius * sunPulse;
 
@@ -405,7 +433,61 @@ export function App() {
       ctx.font = "9px JetBrains Mono, monospace";
       ctx.fillText("CGPA 8.17", 0, sunRad + 28);
 
-      // 6. Draw Planets (Skills)
+      // 6. Draw THE BLACK HOLE (ConcierAI Internship)
+      const bh = targets.blackhole;
+      const bhIsHovered = hoveredItem?.id === "blackhole";
+      const bhIsSelected = selectedItem?.id === "blackhole";
+
+      ctx.save();
+      ctx.translate(bh.x, bh.y);
+
+      // Swirling accretion disk
+      const bhRot = anglesRef.current.blackholeRotation;
+      ctx.rotate(bhRot);
+
+      const diskGrad = ctx.createRadialGradient(0, 0, 10, 0, 0, 48);
+      diskGrad.addColorStop(0, "rgba(56, 189, 248, 0.8)");
+      diskGrad.addColorStop(0.4, "rgba(168, 85, 247, 0.5)");
+      diskGrad.addColorStop(0.8, "rgba(6, 182, 212, 0.15)");
+      diskGrad.addColorStop(1, "transparent");
+
+      ctx.fillStyle = diskGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 50, 22, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Swirling particles around black hole
+      for (let i = 0; i < 8; i++) {
+        const pAng = (i * Math.PI) / 4 + bhRot * 2;
+        const pDist = 24 + (i % 3) * 8;
+        ctx.fillStyle = i % 2 === 0 ? "#38bdf8" : "#f472b6";
+        ctx.beginPath();
+        ctx.arc(Math.cos(pAng) * pDist, Math.sin(pAng) * (pDist * 0.45), 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+
+      // Photon ring
+      ctx.beginPath();
+      ctx.arc(bh.x, bh.y, bh.radius + 2, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(224, 242, 254, 0.9)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Pitch black event horizon
+      ctx.fillStyle = "#000000";
+      ctx.beginPath();
+      ctx.arc(bh.x, bh.y, bh.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Black hole label
+      ctx.fillStyle = bhIsSelected || bhIsHovered ? "#38bdf8" : "#e2e8f0";
+      ctx.font = "bold 10px JetBrains Mono, monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 26);
+
+      // 7. Draw PLANETS (Core Skills)
       PLANETS.forEach((p) => {
         const pos = targets[p.id];
         const isHovered = hoveredItem?.id === p.id;
@@ -449,43 +531,59 @@ export function App() {
         ctx.fillText(p.name, pos.x, pos.y + p.radius + 14);
       });
 
-      // 7. Draw Project Stars (Projects indicated as Stars)
-      PROJECT_STARS.forEach((s) => {
-        const isHovered = hoveredItem?.id === s.id;
-        const isSelected = selectedItem?.id === s.id;
-        const starPulse = 1 + Math.sin(pulseTick * 1.5 + s.x) * 0.15;
-        const starSize = (isHovered || isSelected ? 8 : 6) * starPulse;
+      // 8. Draw PROJECT GALAXIES (Swirling active mini-galaxies)
+      const galRot = anglesRef.current.galaxyRotation;
 
-        // Glow
-        const starGlow = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, starSize * 3);
-        starGlow.addColorStop(0, s.color);
-        starGlow.addColorStop(0.5, s.color + "33");
-        starGlow.addColorStop(1, "transparent");
-        ctx.fillStyle = starGlow;
+      PROJECT_GALAXIES.forEach((g) => {
+        const isHovered = hoveredItem?.id === g.id;
+        const isSelected = selectedItem?.id === g.id;
+
+        ctx.save();
+        ctx.translate(g.x, g.y);
+        ctx.rotate(galRot);
+
+        // Swirling galaxy arms
+        for (let arm = 0; arm < 2; arm++) {
+          const armOffset = arm * Math.PI;
+          ctx.strokeStyle = g.color + "99";
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+
+          for (let step = 0; step < 25; step++) {
+            const theta = (step / 25) * Math.PI * 1.6 + armOffset;
+            const dist = 5 + step * 1.1;
+            const gx = Math.cos(theta) * dist;
+            const gy = Math.sin(theta) * (dist * 0.65);
+
+            if (step === 0) ctx.moveTo(gx, gy);
+            else ctx.lineTo(gx, gy);
+
+            // Particle nodes along arms
+            if (step % 5 === 0) {
+              ctx.fillStyle = "#ffffff";
+              ctx.fillRect(gx - 1, gy - 1, 2, 2);
+            }
+          }
+          ctx.stroke();
+        }
+
+        // Luminous galaxy core
+        const coreGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 12);
+        coreGrad.addColorStop(0, "#ffffff");
+        coreGrad.addColorStop(0.5, g.color);
+        coreGrad.addColorStop(1, "transparent");
+        ctx.fillStyle = coreGrad;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, starSize * 3, 0, Math.PI * 2);
+        ctx.arc(0, 0, 12, 0, Math.PI * 2);
         ctx.fill();
 
-        // 4-point star spike
-        ctx.fillStyle = "#ffffff";
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, starSize * 0.6, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.restore();
 
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(s.x - starSize * 1.8, s.y);
-        ctx.lineTo(s.x + starSize * 1.8, s.y);
-        ctx.moveTo(s.x, s.y - starSize * 1.8);
-        ctx.lineTo(s.x, s.y + starSize * 1.8);
-        ctx.stroke();
-
-        // Label
-        ctx.fillStyle = isSelected ? "#fff" : "#cbd5e1";
+        // Galaxy label
+        ctx.fillStyle = isSelected || isHovered ? "#fff" : "#cbd5e1";
         ctx.font = "bold 10px JetBrains Mono, monospace";
         ctx.textAlign = "center";
-        ctx.fillText(`★ ${s.name}`, s.x, s.y + starSize + 14);
+        ctx.fillText(`🌌 ${g.name}`, g.x, g.y + 24);
       });
 
       ctx.restore();
@@ -498,9 +596,9 @@ export function App() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, [viewMode, isPaused, hoveredItem, selectedItem]);
+  }, [viewMode, isPaused]); // Clean dependency: NEVER reset on hover!
 
-  // Drag & zoom
+  // Mouse pan & hover handlers
   const onMouseDown = (e) => {
     cameraRef.current.isDragging = true;
     cameraRef.current.lastX = e.clientX;
@@ -521,6 +619,7 @@ export function App() {
       return;
     }
 
+    // Hover hit test
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
@@ -541,7 +640,12 @@ export function App() {
         break;
       }
     }
-    setHoveredItem(found);
+
+    // Only trigger React state change if the hovered ID actually changed (prevents re-render spam)
+    if (found?.id !== hoveredIdRef.current) {
+      hoveredIdRef.current = found?.id || null;
+      setHoveredItem(found);
+    }
   };
 
   const onMouseUp = () => {
@@ -583,13 +687,13 @@ export function App() {
     <div className="app">
       {toast && <div className="toast">{toast}</div>}
 
-      {/* Header */}
+      {/* Header Navigation */}
       <header className="nav">
         <div className="brand">
           <div className="brand-sun-icon" />
           <div>
             <div className="brand-name">RAJATH M</div>
-            <div className="brand-role">PORTFOLIO ORRERY</div>
+            <div className="brand-role">INTERPLANETARY PORTFOLIO</div>
           </div>
         </div>
 
@@ -607,7 +711,7 @@ export function App() {
         </div>
       </header>
 
-      {/* Mode 1: Orrery Canvas */}
+      {/* Mode 1: Interactive Orrery Canvas */}
       {viewMode === "orrery" && (
         <div className="canvas-wrap">
           <canvas
@@ -620,66 +724,81 @@ export function App() {
             onClick={onClick}
           />
 
-          {/* Simple clean legend */}
-          <div className="legend-box">
-            <div className="legend-row">
-              <span className="legend-pip sun" />
-              <span><strong>The Sun</strong>: B.E. Degree (BIT)</span>
+          {/* System Index Panel (Direct Guide Showing What Everything Represents) */}
+          <aside className="system-index">
+            <div className="index-header">
+              <span className="index-title">SYSTEM DIRECTORY</span>
+              <span className="index-sub">CLICK TO TARGET</span>
             </div>
-            <div className="legend-row">
-              <span className="legend-pip planet" />
-              <span><strong>Planets</strong>: Engineering Skills</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-pip star" />
-              <span><strong>Stars (★)</strong>: Featured Projects</span>
-            </div>
-            <div className="legend-tip">
-              Drag to pan • Scroll to zoom • Click any object for details
-            </div>
-          </div>
 
-          {/* Target Quick Jump list */}
-          <div className="quick-select">
-            <button
-              className={`jump-chip ${selectedItem?.id === "sun" ? "active" : ""}`}
+            <div className="index-group-label">Stellar Core (Degree)</div>
+            <div
+              className={`index-item ${selectedItem?.id === "sun" ? "active" : ""}`}
               onClick={() => {
                 setSelectedItem(SUN_DEGREE);
                 focusOn("sun");
               }}
             >
-              <span>☀️</span>
-              <span>Degree (Sun)</span>
-            </button>
-            {PLANETS.slice(0, 4).map((p) => (
-              <button
+              <div className="index-item-left">
+                <span className="index-dot sun" />
+                <span>The Sun</span>
+              </div>
+              <span className="index-item-role">B.E. Degree (BIT)</span>
+            </div>
+
+            <div className="index-group-label">Gravitational Core (Internship)</div>
+            <div
+              className={`index-item ${selectedItem?.id === "blackhole" ? "active" : ""}`}
+              onClick={() => {
+                setSelectedItem(BLACK_HOLE_INTERNSHIP);
+                focusOn("blackhole");
+              }}
+            >
+              <div className="index-item-left">
+                <span className="index-dot blackhole" />
+                <span>The Black Hole</span>
+              </div>
+              <span className="index-item-role">ConcierAI (AI Intern)</span>
+            </div>
+
+            <div className="index-group-label">Planets (Technical Skills)</div>
+            {PLANETS.map((p) => (
+              <div
                 key={p.id}
-                className={`jump-chip ${selectedItem?.id === p.id ? "active" : ""}`}
+                className={`index-item ${selectedItem?.id === p.id ? "active" : ""}`}
                 onClick={() => {
                   setSelectedItem(p);
                   focusOn(p.id);
                 }}
               >
-                <span>🪐</span>
-                <span>{p.name.split(" ")[0]}</span>
-              </button>
+                <div className="index-item-left">
+                  <span className="index-dot planet" />
+                  <span>{p.name}</span>
+                </div>
+                <span className="index-item-role">Skill</span>
+              </div>
             ))}
-            {PROJECT_STARS.slice(0, 3).map((s) => (
-              <button
-                key={s.id}
-                className={`jump-chip ${selectedItem?.id === s.id ? "active" : ""}`}
+
+            <div className="index-group-label">Galaxies (Working Projects)</div>
+            {PROJECT_GALAXIES.map((g) => (
+              <div
+                key={g.id}
+                className={`index-item ${selectedItem?.id === g.id ? "active" : ""}`}
                 onClick={() => {
-                  setSelectedItem(s);
-                  focusOn(s.id);
+                  setSelectedItem(g);
+                  focusOn(g.id);
                 }}
               >
-                <span>★</span>
-                <span>{s.name.split(" ")[0]}</span>
-              </button>
+                <div className="index-item-left">
+                  <span className="index-dot galaxy" />
+                  <span>{g.name}</span>
+                </div>
+                <span className="index-item-role">Project</span>
+              </div>
             ))}
-          </div>
+          </aside>
 
-          {/* Minimal Controls dock (no speeds, simple and clean) */}
+          {/* Minimal Controls Dock (No Speeds) */}
           <div className="controls-dock">
             <button
               className={`dock-btn ${isPaused ? "active" : ""}`}
@@ -708,7 +827,7 @@ export function App() {
             </button>
           </div>
 
-          {/* Detail card when clicked */}
+          {/* Holographic Detail Card */}
           {selectedItem && (
             <aside className="detail-card">
               <div className="detail-top">
@@ -778,7 +897,7 @@ export function App() {
             <h1>Rajath M — Software & AI Engineer</h1>
             <p>
               Computer Science student at <strong>Bangalore Institute of Technology (BIT)</strong> with
-              focus on <strong>Java backend development, Data Structures & Algorithms</strong>, and hands-on
+              hands-on focus on <strong>Java backend development, Data Structures & Algorithms</strong>, and active
               AI model fine-tuning as a <strong>Junior AI Intern at ConcierAI</strong>.
             </p>
             <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
@@ -794,10 +913,19 @@ export function App() {
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
             The Sun: Academic Degree
           </h2>
-          <div className="card" style={{ marginBottom: "30px" }}>
+          <div className="card" style={{ marginBottom: "26px" }}>
             <h3>{SUN_DEGREE.name}</h3>
             <div className="card-sub">{SUN_DEGREE.subtitle} • {SUN_DEGREE.meta}</div>
             <p>{SUN_DEGREE.summary}</p>
+          </div>
+
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
+            The Black Hole: AI Internship
+          </h2>
+          <div className="card" style={{ marginBottom: "26px" }}>
+            <h3>🕳️ {BLACK_HOLE_INTERNSHIP.name}</h3>
+            <div className="card-sub">{BLACK_HOLE_INTERNSHIP.subtitle} • {BLACK_HOLE_INTERNSHIP.meta}</div>
+            <p>{BLACK_HOLE_INTERNSHIP.summary}</p>
           </div>
 
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
@@ -823,23 +951,23 @@ export function App() {
           </div>
 
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", marginBottom: "16px" }}>
-            Project Stars: Work & Research
+            Working Project Galaxies
           </h2>
           <div className="dossier-grid">
-            {PROJECT_STARS.map((s) => (
+            {PROJECT_GALAXIES.map((g) => (
               <div
-                key={s.id}
+                key={g.id}
                 className="card"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  setSelectedItem(s);
+                  setSelectedItem(g);
                   setViewMode("orrery");
-                  setTimeout(() => focusOn(s.id), 150);
+                  setTimeout(() => focusOn(g.id), 150);
                 }}
               >
-                <h3>★ {s.name}</h3>
-                <div className="card-sub">{s.category} • {s.techs.join(", ")}</div>
-                <p>{s.summary}</p>
+                <h3>🌌 {g.name}</h3>
+                <div className="card-sub">{g.category} • {g.techs.join(", ")}</div>
+                <p>{g.summary}</p>
               </div>
             ))}
           </div>
