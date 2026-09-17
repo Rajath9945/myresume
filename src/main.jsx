@@ -39,9 +39,9 @@ const BLACK_HOLE_INTERNSHIP = {
   name: "Junior AI Intern — ConcierAI",
   subtitle: "ConcierAI • Model Fine-Tuning & Evaluation",
   meta: "2026 – Present • AI Engineering",
-  x: -360,
-  y: -220,
-  radius: 24,
+  x: -430,
+  y: -150,
+  radius: 26,
   summary:
     "Active internship at ConcierAI working directly on applied AI systems: fine-tuning models, building benchmark evaluation pipelines, and curating dataset workflows.",
   bullets: [
@@ -173,8 +173,8 @@ const PROJECT_GALAXIES = [
     category: "Active Backend Service",
     morphology: "Barred Spiral (SBb)",
     techs: ["Java", "Spring Boot", "MySQL", "REST API"],
-    x: 370,
-    y: -210,
+    x: 460,
+    y: 80,
     size: 46,
     tilt: 0.68,
     spinSpeed: 0.0045,
@@ -196,8 +196,8 @@ const PROJECT_GALAXIES = [
     category: "Live Computer Vision",
     morphology: "Grand-Design Spiral (M101)",
     techs: ["Python", "Flask", "CNN", "OpenCV"],
-    x: 380,
-    y: 220,
+    x: 290,
+    y: -270,
     size: 54, // Largest majestic multi-arm spiral
     tilt: 0.85,
     spinSpeed: 0.0035,
@@ -219,8 +219,8 @@ const PROJECT_GALAXIES = [
     category: "IoT Hardware Prototype",
     morphology: "Resonance Ring Galaxy (Hoag Type)",
     techs: ["IoT", "Embedded C", "Sensors", "Hardware"],
-    x: -370,
-    y: 220,
+    x: 110,
+    y: 280,
     size: 38,
     tilt: 0.55,
     spinSpeed: 0.0028,
@@ -241,8 +241,8 @@ const PROJECT_GALAXIES = [
     category: "Developer Community",
     morphology: "Compact Starburst Core",
     techs: ["Java", "DSA Mentorship", "Contest Design"],
-    x: 0,
-    y: -360,
+    x: -320,
+    y: 230,
     size: 32, // Compact intense galaxy
     tilt: 0.62,
     spinSpeed: 0.0055,
@@ -285,19 +285,89 @@ export function App() {
   });
 
   const backgroundStarsRef = useRef([]);
+  const nebulaCloudsRef = useRef([]);
+  const deepFieldGalaxiesRef = useRef([]);
   const galaxyStarsRef = useRef({});
 
-  // Generate realistic space background and galaxy stellar clusters once on mount
+  // Generate realistic space background, molecular nebulae, and galaxy stellar clusters once on mount
   useEffect(() => {
-    // 1. Deep space background field
+    // 1. Cosmic Molecular Nebula Clouds (deep space dust veils giving authentic depth)
+    nebulaCloudsRef.current = [
+      { x: -480, y: -220, radius: 460, color: "rgba(14, 116, 144, 0.07)" },
+      { x: 380, y: -290, radius: 440, color: "rgba(30, 27, 75, 0.12)" },
+      { x: 420, y: 220, radius: 500, color: "rgba(15, 23, 42, 0.22)" },
+      { x: -320, y: 320, radius: 420, color: "rgba(88, 28, 135, 0.05)" },
+      { x: 50, y: -380, radius: 380, color: "rgba(12, 74, 110, 0.06)" },
+      { x: -80, y: 60, radius: 340, color: "rgba(245, 158, 11, 0.03)" },
+    ];
+
+    // 2. Faint Distant Deep-Field Micro-Galaxies (cosmic background smudge galaxies)
+    const deepGalaxies = [];
+    for (let i = 0; i < 24; i++) {
+      deepGalaxies.push({
+        x: (Math.random() - 0.5) * 2400,
+        y: (Math.random() - 0.5) * 2400,
+        radius: Math.random() * 4.5 + 2,
+        tilt: Math.random() * 0.45 + 0.35,
+        rot: Math.random() * Math.PI,
+        coreColor: Math.random() > 0.6 ? "rgba(254, 240, 138, 0.3)" : "rgba(186, 230, 253, 0.25)",
+        haloColor: Math.random() > 0.5 ? "rgba(147, 197, 253, 0.12)" : "rgba(245, 158, 11, 0.08)",
+      });
+    }
+    deepFieldGalaxiesRef.current = deepGalaxies;
+
+    // 3. Multi-tiered stellar populations with real Morgan-Keenan spectral classes
     const stars = [];
-    for (let i = 0; i < 220; i++) {
+    // A. 360 distant micro-stars
+    for (let i = 0; i < 360; i++) {
+      const rand = Math.random();
       stars.push({
         x: (Math.random() - 0.5) * 2600,
         y: (Math.random() - 0.5) * 2600,
-        size: Math.random() * 1.6 + 0.3,
-        alpha: Math.random() * 0.7 + 0.15,
-        color: Math.random() > 0.8 ? "#93c5fd" : Math.random() > 0.6 ? "#fde68a" : "#ffffff",
+        size: Math.random() * 0.65 + 0.3,
+        alpha: Math.random() * 0.5 + 0.15,
+        color:
+          rand > 0.75
+            ? "#93c5fd" // Class O/B
+            : rand > 0.5
+            ? "#bae6fd"
+            : rand > 0.25
+            ? "#ffffff" // Class A/F
+            : rand > 0.1
+            ? "#fef08a" // Class G
+            : "#fed7aa", // Class K/M
+        hasSpikes: false,
+      });
+    }
+    // B. 120 mid-distance stars
+    for (let i = 0; i < 120; i++) {
+      const rand = Math.random();
+      stars.push({
+        x: (Math.random() - 0.5) * 2400,
+        y: (Math.random() - 0.5) * 2400,
+        size: Math.random() * 0.8 + 0.8,
+        alpha: Math.random() * 0.4 + 0.45,
+        color:
+          rand > 0.7
+            ? "#bfdbfe"
+            : rand > 0.3
+            ? "#ffffff"
+            : rand > 0.15
+            ? "#fde047"
+            : "#fb923c",
+        hasSpikes: false,
+      });
+    }
+    // C. 16 bright foreground stars with telescope diffraction spikes
+    for (let i = 0; i < 16; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * 2200,
+        y: (Math.random() - 0.5) * 2200,
+        size: Math.random() * 1.3 + 1.8,
+        alpha: Math.random() * 0.25 + 0.75,
+        color: Math.random() > 0.6 ? "#e0f2fe" : Math.random() > 0.3 ? "#ffffff" : "#fef08a",
+        hasSpikes: true,
+        spikeLength: Math.random() * 4 + 6,
       });
     }
     backgroundStarsRef.current = stars;
@@ -449,13 +519,51 @@ export function App() {
 
       const tilt = 0.65; // gentle 3D isometric inclination
 
-      // 1. Deep space background stars
+      // 1. Cosmic Molecular Nebula Clouds (deep space gas veils)
+      nebulaCloudsRef.current.forEach((n) => {
+        const nGrad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius);
+        nGrad.addColorStop(0, n.color);
+        nGrad.addColorStop(1, "transparent");
+        ctx.fillStyle = nGrad;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // 2. Faint Distant Deep-Field Micro-Galaxies
+      deepFieldGalaxiesRef.current.forEach((dg) => {
+        ctx.save();
+        ctx.translate(dg.x, dg.y);
+        ctx.rotate(dg.rot);
+        const dgGrad = ctx.createRadialGradient(0, 0, 0.5, 0, 0, dg.radius);
+        dgGrad.addColorStop(0, dg.coreColor);
+        dgGrad.addColorStop(0.5, dg.haloColor);
+        dgGrad.addColorStop(1, "transparent");
+        ctx.fillStyle = dgGrad;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, dg.radius, dg.radius * dg.tilt, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // 3. Multi-tiered stellar populations with optical diffraction spikes
       backgroundStarsRef.current.forEach((s) => {
         ctx.fillStyle = s.color;
         ctx.globalAlpha = s.alpha;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
         ctx.fill();
+
+        if (s.hasSpikes) {
+          ctx.strokeStyle = s.color;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(s.x - s.spikeLength, s.y);
+          ctx.lineTo(s.x + s.spikeLength, s.y);
+          ctx.moveTo(s.x, s.y - s.spikeLength);
+          ctx.lineTo(s.x, s.y + s.spikeLength);
+          ctx.stroke();
+        }
       });
       ctx.globalAlpha = 1;
 
@@ -503,7 +611,7 @@ export function App() {
       targets.blackhole = {
         x: BLACK_HOLE_INTERNSHIP.x,
         y: BLACK_HOLE_INTERNSHIP.y,
-        radius: BLACK_HOLE_INTERNSHIP.radius,
+        radius: BLACK_HOLE_INTERNSHIP.radius * 2.4,
         data: BLACK_HOLE_INTERNSHIP,
       };
 
@@ -544,59 +652,140 @@ export function App() {
       ctx.font = "9px JetBrains Mono, monospace";
       ctx.fillText("CGPA 8.17", 0, sunRad + 28);
 
-      // 6. Draw THE BLACK HOLE (ConcierAI Internship)
+      // 6. Draw THE REALISTIC BLACK HOLE (ConcierAI Gravitational Singularity)
       const bh = targets.blackhole;
       const bhIsHovered = hoveredItem?.id === "blackhole";
       const bhIsSelected = selectedItem?.id === "blackhole";
+      const bhRot = anglesRef.current.blackholeRotation;
 
       ctx.save();
       ctx.translate(bh.x, bh.y);
 
-      // Swirling accretion disk
-      const bhRot = anglesRef.current.blackholeRotation;
-      ctx.rotate(bhRot);
-
-      const diskGrad = ctx.createRadialGradient(0, 0, 10, 0, 0, 48);
-      diskGrad.addColorStop(0, "rgba(254, 240, 138, 0.95)");
-      diskGrad.addColorStop(0.35, "rgba(245, 158, 11, 0.55)");
-      diskGrad.addColorStop(0.75, "rgba(56, 189, 248, 0.2)");
-      diskGrad.addColorStop(1, "transparent");
-
-      ctx.fillStyle = diskGrad;
+      // A. Gravitational Lensing Spacetime Distortion Glow
+      const lensAura = ctx.createRadialGradient(0, 0, bh.radius * 0.8, 0, 0, bh.radius * 3.4);
+      lensAura.addColorStop(0, "rgba(254, 240, 138, 0.22)");
+      lensAura.addColorStop(0.3, "rgba(245, 158, 11, 0.12)");
+      lensAura.addColorStop(0.65, "rgba(56, 189, 248, 0.04)");
+      lensAura.addColorStop(1, "transparent");
+      ctx.fillStyle = lensAura;
       ctx.beginPath();
-      ctx.ellipse(0, 0, 50, 22, 0, 0, Math.PI * 2);
+      ctx.arc(0, 0, bh.radius * 3.4, 0, Math.PI * 2);
       ctx.fill();
 
-      // Swirling particles around black hole
-      for (let i = 0; i < 8; i++) {
-        const pAng = (i * Math.PI) / 4 + bhRot * 2;
-        const pDist = 24 + (i % 3) * 8;
-        ctx.fillStyle = i % 2 === 0 ? "#fef08a" : "#38bdf8";
-        ctx.beginPath();
-        ctx.arc(Math.cos(pAng) * pDist, Math.sin(pAng) * (pDist * 0.45), 1.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      // B. Top Warped Accretion Disk (Lensed arch curving over the top of the event horizon)
+      ctx.save();
+      const topDiskGrad = ctx.createRadialGradient(0, 0, bh.radius * 1.0, 0, -bh.radius * 0.4, bh.radius * 2.6);
+      topDiskGrad.addColorStop(0, "#ffffff");
+      topDiskGrad.addColorStop(0.2, "rgba(254, 240, 138, 0.95)");
+      topDiskGrad.addColorStop(0.45, "rgba(245, 158, 11, 0.7)");
+      topDiskGrad.addColorStop(0.75, "rgba(217, 119, 6, 0.3)");
+      topDiskGrad.addColorStop(1, "transparent");
 
+      ctx.fillStyle = topDiskGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, -bh.radius * 0.32, bh.radius * 2.4, bh.radius * 1.7, 0, Math.PI * 0.84, Math.PI * 2.16, false);
+      ctx.fill();
+
+      // Lower secondary warped reflection arc
+      ctx.beginPath();
+      ctx.ellipse(0, bh.radius * 0.32, bh.radius * 2.1, bh.radius * 1.05, 0, 0, Math.PI);
+      ctx.fillStyle = "rgba(245, 158, 11, 0.28)";
+      ctx.fill();
       ctx.restore();
 
-      // Photon ring
-      ctx.beginPath();
-      ctx.arc(bh.x, bh.y, bh.radius + 2, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(224, 242, 254, 0.9)";
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      // C. Rear Equatorial Disk (behind black hole shadow)
+      ctx.save();
+      ctx.rotate(-0.16); // natural orbital tilt
+      const backDiskGrad = ctx.createLinearGradient(-bh.radius * 2.8, 0, bh.radius * 2.8, 0);
+      // Relativistic Doppler beaming: approaching left side is boosted
+      backDiskGrad.addColorStop(0, "rgba(56, 189, 248, 0)");
+      backDiskGrad.addColorStop(0.2, "rgba(147, 197, 253, 0.85)"); // Doppler blue-white
+      backDiskGrad.addColorStop(0.4, "rgba(254, 240, 138, 0.95)");
+      backDiskGrad.addColorStop(0.65, "rgba(245, 158, 11, 0.75)"); // Redshifted amber
+      backDiskGrad.addColorStop(0.85, "rgba(180, 83, 9, 0.3)");
+      backDiskGrad.addColorStop(1, "transparent");
 
-      // Pitch black event horizon
+      ctx.fillStyle = backDiskGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, bh.radius * 2.8, bh.radius * 0.75, 0, Math.PI, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // D. Pitch-Black Event Horizon Shadow (Singularity occultation)
       ctx.fillStyle = "#000000";
       ctx.beginPath();
-      ctx.arc(bh.x, bh.y, bh.radius, 0, Math.PI * 2);
+      ctx.arc(0, 0, bh.radius, 0, Math.PI * 2);
       ctx.fill();
+
+      // E. Ultra-Crisp Photon Sphere Ring
+      ctx.beginPath();
+      ctx.arc(0, 0, bh.radius + 1.2, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.98)";
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      const photonGlow = ctx.createRadialGradient(0, 0, bh.radius - 1, 0, 0, bh.radius + 6);
+      photonGlow.addColorStop(0, "rgba(255, 255, 255, 0.9)");
+      photonGlow.addColorStop(0.3, "rgba(254, 240, 138, 0.65)");
+      photonGlow.addColorStop(1, "transparent");
+      ctx.strokeStyle = photonGlow;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.arc(0, 0, bh.radius + 2, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // F. Front Equatorial Disk (Passing IN FRONT of the black hole shadow)
+      ctx.save();
+      ctx.rotate(-0.16);
+      const frontDiskGrad = ctx.createLinearGradient(-bh.radius * 2.8, 0, bh.radius * 2.8, 0);
+      frontDiskGrad.addColorStop(0, "rgba(56, 189, 248, 0)");
+      frontDiskGrad.addColorStop(0.2, "rgba(147, 197, 253, 0.95)"); // Doppler boosted
+      frontDiskGrad.addColorStop(0.4, "rgba(255, 255, 255, 1.0)");
+      frontDiskGrad.addColorStop(0.65, "rgba(245, 158, 11, 0.85)");
+      frontDiskGrad.addColorStop(0.85, "rgba(180, 83, 9, 0.35)");
+      frontDiskGrad.addColorStop(1, "transparent");
+
+      ctx.fillStyle = frontDiskGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, bh.radius * 2.8, bh.radius * 0.75, 0, 0, Math.PI);
+      ctx.fill();
+
+      // Swirling Relativistic Turbulent Plasma Filaments
+      for (let i = 0; i < 10; i++) {
+        const pAng = (i * Math.PI) / 5 + bhRot * 3;
+        const pDist = bh.radius * 1.25 + (i % 3) * (bh.radius * 0.45);
+        const px = Math.cos(pAng) * pDist;
+        const py = Math.sin(pAng) * (pDist * 0.28);
+        ctx.fillStyle = i % 2 === 0 ? "#ffffff" : "#fde047";
+        ctx.globalAlpha = 0.85;
+        ctx.beginPath();
+        ctx.arc(px, py, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1.0;
+      ctx.restore();
+
+      // G. Selection / Hover Targeting Ring
+      if (bhIsSelected || bhIsHovered) {
+        ctx.beginPath();
+        ctx.arc(0, 0, bh.radius * 2.5, 0, Math.PI * 2);
+        ctx.strokeStyle = bhIsSelected ? "#38bdf8" : "rgba(56, 189, 248, 0.55)";
+        ctx.lineWidth = bhIsSelected ? 2 : 1.2;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      ctx.restore(); // restore translate
 
       // Black hole label
       ctx.fillStyle = bhIsSelected || bhIsHovered ? "#38bdf8" : "#e2e8f0";
       ctx.font = "bold 10px JetBrains Mono, monospace";
       ctx.textAlign = "center";
-      ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 26);
+      ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 30);
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "8.5px JetBrains Mono, monospace";
+      ctx.fillText("[Gravitational Singularity]", bh.x, bh.y + bh.radius + 42);
 
       // 7. Draw PLANETS (Core Skills)
       PLANETS.forEach((p) => {
