@@ -249,19 +249,6 @@ export function App() {
   const canvasRef = useRef(null);
   const hoveredIdRef = useRef(null);
 
-  // Persistent camera state
-  const cameraRef = useRef({
-    x: 0,
-    y: 0,
-    zoom: 1,
-    targetX: 0,
-    targetY: 0,
-    targetZoom: 1,
-    isDragging: false,
-    lastX: 0,
-    lastY: 0,
-  });
-
   // Persistent orbital angles — NEVER reset on hover or re-render
   const anglesRef = useRef({
     java: 0.5,
@@ -325,18 +312,12 @@ export function App() {
 
     const render = () => {
       const { width, height } = canvas;
-      const cam = cameraRef.current;
-
-      // Smooth camera interpolation (strictly clamped at minimum 1.0 zoom)
-      cam.x += (cam.targetX - cam.x) * 0.08;
-      cam.y += (cam.targetY - cam.y) * 0.08;
-      cam.zoom = Math.max(1.0, cam.zoom + (cam.targetZoom - cam.zoom) * 0.08);
 
       ctx.save();
       ctx.clearRect(0, 0, width, height);
 
-      ctx.translate(width / 2 + cam.x, height / 2 + cam.y);
-      ctx.scale(cam.zoom, cam.zoom);
+      // Permanently centered, fixed scale (no moving or zooming)
+      ctx.translate(width / 2, height / 2);
 
       const tilt = 0.65; // gentle 3D isometric inclination
 
@@ -598,35 +579,18 @@ export function App() {
     };
   }, [viewMode, isPaused]); // Clean dependency: NEVER reset on hover!
 
-  // Mouse pan & hover handlers
-  const onMouseDown = (e) => {
-    cameraRef.current.isDragging = true;
-    cameraRef.current.lastX = e.clientX;
-    cameraRef.current.lastY = e.clientY;
-  };
-
+  // Mouse move hover detection on static centered canvas
   const onMouseMove = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    if (cameraRef.current.isDragging) {
-      const dx = e.clientX - cameraRef.current.lastX;
-      const dy = e.clientY - cameraRef.current.lastY;
-      cameraRef.current.targetX += dx;
-      cameraRef.current.targetY += dy;
-      cameraRef.current.lastX = e.clientX;
-      cameraRef.current.lastY = e.clientY;
-      return;
-    }
-
-    // Hover hit test
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
-    const cam = cameraRef.current;
 
-    const wx = (mx - canvas.width / 2 - cam.x) / cam.zoom;
-    const wy = (my - canvas.height / 2 - cam.y) / cam.zoom;
+    // Centered coordinates relative to canvas center
+    const wx = mx - canvas.width / 2;
+    const wy = my - canvas.height / 2;
 
     const targets = canvas._targets;
     if (!targets) return;
@@ -641,50 +605,18 @@ export function App() {
       }
     }
 
-    // Only trigger React state change if the hovered ID actually changed (prevents re-render spam)
+    canvas.style.cursor = found ? "pointer" : "default";
+
     if (found?.id !== hoveredIdRef.current) {
       hoveredIdRef.current = found?.id || null;
       setHoveredItem(found);
     }
   };
 
-  const onMouseUp = () => {
-    cameraRef.current.isDragging = false;
-  };
-
-  const onWheel = (e) => {
-    e.preventDefault();
-    if (e.deltaY > 0) {
-      // Zooming out is strictly clamped at 1.0 — space will not zoom out below standard scale
-      cameraRef.current.targetZoom = Math.max(1.0, cameraRef.current.targetZoom * 0.95);
-    } else {
-      cameraRef.current.targetZoom = Math.min(1.8, cameraRef.current.targetZoom * 1.08);
-    }
-  };
-
   const onClick = () => {
     if (hoveredItem) {
       setSelectedItem(hoveredItem);
-      focusOn(hoveredItem.id);
     }
-  };
-
-  const focusOn = (id) => {
-    const canvas = canvasRef.current;
-    if (!canvas || !canvas._targets) return;
-    const pos = canvas._targets[id];
-    if (pos) {
-      cameraRef.current.targetX = -pos.x * cameraRef.current.zoom;
-      cameraRef.current.targetY = -pos.y * cameraRef.current.zoom;
-      cameraRef.current.targetZoom = Math.max(1.0, id === "sun" ? 1.15 : 1.35);
-    }
-  };
-
-  const resetView = () => {
-    cameraRef.current.targetX = 0;
-    cameraRef.current.targetY = 0;
-    cameraRef.current.targetZoom = 1.0;
-    setSelectedItem(null);
   };
 
   return (
@@ -721,10 +653,7 @@ export function App() {
           <canvas
             ref={canvasRef}
             className="space-canvas"
-            onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
-            onWheel={onWheel}
             onClick={onClick}
           />
 
@@ -732,16 +661,13 @@ export function App() {
           <aside className="system-index">
             <div className="index-header">
               <span className="index-title">SYSTEM DIRECTORY</span>
-              <span className="index-sub">CLICK TO TARGET</span>
+              <span className="index-sub">CLICK TO SELECT</span>
             </div>
 
             <div className="index-group-label">Stellar Core (Degree)</div>
             <div
               className={`index-item ${selectedItem?.id === "sun" ? "active" : ""}`}
-              onClick={() => {
-                setSelectedItem(SUN_DEGREE);
-                focusOn("sun");
-              }}
+              onClick={() => setSelectedItem(SUN_DEGREE)}
             >
               <div className="index-item-left">
                 <span className="index-dot sun" />
@@ -753,10 +679,7 @@ export function App() {
             <div className="index-group-label">Gravitational Core (Internship)</div>
             <div
               className={`index-item ${selectedItem?.id === "blackhole" ? "active" : ""}`}
-              onClick={() => {
-                setSelectedItem(BLACK_HOLE_INTERNSHIP);
-                focusOn("blackhole");
-              }}
+              onClick={() => setSelectedItem(BLACK_HOLE_INTERNSHIP)}
             >
               <div className="index-item-left">
                 <span className="index-dot blackhole" />
@@ -770,10 +693,7 @@ export function App() {
               <div
                 key={p.id}
                 className={`index-item ${selectedItem?.id === p.id ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedItem(p);
-                  focusOn(p.id);
-                }}
+                onClick={() => setSelectedItem(p)}
               >
                 <div className="index-item-left">
                   <span className="index-dot planet" />
@@ -788,10 +708,7 @@ export function App() {
               <div
                 key={g.id}
                 className={`index-item ${selectedItem?.id === g.id ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedItem(g);
-                  focusOn(g.id);
-                }}
+                onClick={() => setSelectedItem(g)}
               >
                 <div className="index-item-left">
                   <span className="index-dot galaxy" />
@@ -802,24 +719,13 @@ export function App() {
             ))}
           </aside>
 
-          {/* Minimal Controls Dock (No Speeds) */}
+          {/* Minimal Controls Dock (No Zooming or Moving) */}
           <div className="controls-dock">
             <button
               className={`dock-btn ${isPaused ? "active" : ""}`}
               onClick={() => setIsPaused(!isPaused)}
             >
-              {isPaused ? "▶ Resume" : "⏸ Pause"}
-            </button>
-            <button
-              className="dock-btn"
-              onClick={() => {
-                cameraRef.current.targetZoom = Math.min(1.8, cameraRef.current.zoom * 1.2);
-              }}
-            >
-              + Zoom In
-            </button>
-            <button className="dock-btn" onClick={resetView}>
-              Center View
+              {isPaused ? "▶ Resume Orbit" : "⏸ Pause Orbit"}
             </button>
           </div>
 
@@ -936,7 +842,6 @@ export function App() {
                 onClick={() => {
                   setSelectedItem(p);
                   setViewMode("orrery");
-                  setTimeout(() => focusOn(p.id), 150);
                 }}
               >
                 <h3>{p.name}</h3>
@@ -958,7 +863,6 @@ export function App() {
                 onClick={() => {
                   setSelectedItem(g);
                   setViewMode("orrery");
-                  setTimeout(() => focusOn(g.id), 150);
                 }}
               >
                 <h3>🌌 {g.name}</h3>
