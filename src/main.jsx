@@ -327,10 +327,10 @@ export function App() {
       const { width, height } = canvas;
       const cam = cameraRef.current;
 
-      // Smooth camera interpolation
+      // Smooth camera interpolation (strictly clamped at minimum 1.0 zoom)
       cam.x += (cam.targetX - cam.x) * 0.08;
       cam.y += (cam.targetY - cam.y) * 0.08;
-      cam.zoom += (cam.targetZoom - cam.zoom) * 0.08;
+      cam.zoom = Math.max(1.0, cam.zoom + (cam.targetZoom - cam.zoom) * 0.08);
 
       ctx.save();
       ctx.clearRect(0, 0, width, height);
@@ -654,8 +654,12 @@ export function App() {
 
   const onWheel = (e) => {
     e.preventDefault();
-    const factor = e.deltaY > 0 ? 0.9 : 1.1;
-    cameraRef.current.targetZoom = Math.max(0.4, Math.min(2.5, cameraRef.current.targetZoom * factor));
+    if (e.deltaY > 0) {
+      // Zooming out is strictly clamped at 1.0 — space will not zoom out below standard scale
+      cameraRef.current.targetZoom = Math.max(1.0, cameraRef.current.targetZoom * 0.95);
+    } else {
+      cameraRef.current.targetZoom = Math.min(1.8, cameraRef.current.targetZoom * 1.08);
+    }
   };
 
   const onClick = () => {
@@ -672,14 +676,14 @@ export function App() {
     if (pos) {
       cameraRef.current.targetX = -pos.x * cameraRef.current.zoom;
       cameraRef.current.targetY = -pos.y * cameraRef.current.zoom;
-      cameraRef.current.targetZoom = id === "sun" ? 1.2 : 1.4;
+      cameraRef.current.targetZoom = Math.max(1.0, id === "sun" ? 1.15 : 1.35);
     }
   };
 
   const resetView = () => {
     cameraRef.current.targetX = 0;
     cameraRef.current.targetY = 0;
-    cameraRef.current.targetZoom = 1;
+    cameraRef.current.targetZoom = 1.0;
     setSelectedItem(null);
   };
 
@@ -809,21 +813,13 @@ export function App() {
             <button
               className="dock-btn"
               onClick={() => {
-                cameraRef.current.targetZoom = Math.min(2.5, cameraRef.current.zoom * 1.25);
+                cameraRef.current.targetZoom = Math.min(1.8, cameraRef.current.zoom * 1.2);
               }}
             >
-              + Zoom
-            </button>
-            <button
-              className="dock-btn"
-              onClick={() => {
-                cameraRef.current.targetZoom = Math.max(0.4, cameraRef.current.zoom * 0.8);
-              }}
-            >
-              - Zoom
+              + Zoom In
             </button>
             <button className="dock-btn" onClick={resetView}>
-              Center
+              Center View
             </button>
           </div>
 
