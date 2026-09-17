@@ -237,7 +237,7 @@ button {
 .index-dot.sun { background: var(--sun); box-shadow: 0 0 8px var(--sun); }
 .index-dot.blackhole { background: #000; border: 1.5px solid var(--cyan); box-shadow: 0 0 8px var(--cyan); }
 .index-dot.planet { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
-.index-dot.galaxy { background: #c084fc; box-shadow: 0 0 8px #c084fc; }
+.index-dot.galaxy { background: #93c5fd; box-shadow: 0 0 8px #93c5fd; }
 
 .index-item-role {
   font-size: 9px;

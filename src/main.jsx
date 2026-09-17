@@ -178,8 +178,8 @@ const PROJECT_GALAXIES = [
     size: 46,
     tilt: 0.68,
     spinSpeed: 0.0045,
-    color: "#38bdf8",
-    accentColor: "#93c5fd",
+    color: "#7dd3fc", // Observed celestial blue spiral arm starlight
+    accentColor: "#fef08a", // Warm golden stellar bar & bulge
     summary:
       "A complete REST backend orchestrating loan applications, customer profiles, validation logic, and repayment schedules.",
     bullets: [
@@ -201,8 +201,8 @@ const PROJECT_GALAXIES = [
     size: 54, // Largest majestic multi-arm spiral
     tilt: 0.85,
     spinSpeed: 0.0035,
-    color: "#f472b6",
-    accentColor: "#c084fc",
+    color: "#93c5fd", // Ethereal icy blue starlight across 4 sweeping arms
+    accentColor: "#fde68a", // Luminous warm yellow-white galactic nucleus
     summary:
       "Deep learning monitoring tool processing live video streams to measure student attention and engagement levels in real time.",
     bullets: [
@@ -224,8 +224,8 @@ const PROJECT_GALAXIES = [
     size: 38,
     tilt: 0.55,
     spinSpeed: 0.0028,
-    color: "#34d399",
-    accentColor: "#6ee7b7",
+    color: "#60a5fa", // Brilliant ring of young blue stars (true Hoag's Object)
+    accentColor: "#fcd34d", // Spherical warm golden core of mature stars
     summary:
       "An automated street lighting prototype that dims during inactivity and brightens when approaching traffic or pedestrians are detected.",
     bullets: [
@@ -246,8 +246,8 @@ const PROJECT_GALAXIES = [
     size: 32, // Compact intense galaxy
     tilt: 0.62,
     spinSpeed: 0.0055,
-    color: "#c084fc",
-    accentColor: "#fde047",
+    color: "#cbd5e1", // Diamond-white & subtle celestial blue starlight
+    accentColor: "#fef3c7", // Radiant warm starlight core
     summary:
       "Student coding platform and mentorship program at Bangalore Institute of Technology where Rajath coordinates technical problem-solving.",
     bullets: [
@@ -305,15 +305,15 @@ export function App() {
     // 2. Individual star clusters for each galaxy according to its astronomical morphology
     const gStars = {};
 
-    // A. Barred Spiral (proj-loan)
+    // A. Barred Spiral (proj-loan) — Creamy golden stellar bar with icy blue spiral arm stars
     const loanStars = [];
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i < 28; i++) {
       loanStars.push({
         x: (Math.random() - 0.5) * 32,
         y: (Math.random() - 0.5) * 8,
         size: Math.random() * 1.5 + 0.6,
         alpha: Math.random() * 0.7 + 0.3,
-        color: Math.random() > 0.4 ? "#ffffff" : "#93c5fd",
+        color: Math.random() > 0.5 ? "#ffffff" : "#fef3c7",
       });
     }
     for (let i = 0; i < 50; i++) {
@@ -326,12 +326,12 @@ export function App() {
         y: Math.sin(theta) * (r * 0.68),
         size: Math.random() * 1.6 + 0.5,
         alpha: Math.random() * 0.75 + 0.25,
-        color: Math.random() > 0.5 ? "#38bdf8" : "#e0f2fe",
+        color: Math.random() > 0.5 ? "#7dd3fc" : Math.random() > 0.25 ? "#bae6fd" : "#ffffff",
       });
     }
     gStars["proj-loan"] = loanStars;
 
-    // B. Grand-Design 4-Arm Spiral (proj-ai) - Largest majestic galaxy
+    // B. Grand-Design 4-Arm Spiral (proj-ai) — Brilliant blue-white OB associations and warm nucleus
     const aiStars = [];
     for (let i = 0; i < 85; i++) {
       const arm = (i % 4) * (Math.PI / 2);
@@ -343,22 +343,29 @@ export function App() {
         y: Math.sin(theta) * (r * 0.85),
         size: Math.random() * 1.8 + 0.6,
         alpha: Math.random() * 0.8 + 0.2,
-        color: Math.random() > 0.6 ? "#f472b6" : Math.random() > 0.3 ? "#c084fc" : "#ffffff",
+        color:
+          Math.random() > 0.6
+            ? "#ffffff"
+            : Math.random() > 0.3
+            ? "#93c5fd"
+            : Math.random() > 0.12
+            ? "#bae6fd"
+            : "#fef08a",
       });
     }
     gStars["proj-ai"] = aiStars;
 
-    // C. Resonance Ring Galaxy (proj-light)
+    // C. Resonance Ring Galaxy (proj-light / Hoag's Object) — Golden nucleus & brilliant blue stellar ring
     const lightStars = [];
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 20; i++) {
       const theta = Math.random() * Math.PI * 2;
       const r = Math.random() * 7;
       lightStars.push({
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.55),
         size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.8 + 0.2,
-        color: "#fef08a",
+        alpha: Math.random() * 0.85 + 0.2,
+        color: Math.random() > 0.5 ? "#fef08a" : "#fcd34d",
       });
     }
     for (let i = 0; i < 54; i++) {
@@ -368,13 +375,13 @@ export function App() {
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.55),
         size: Math.random() * 1.6 + 0.6,
-        alpha: Math.random() * 0.75 + 0.25,
-        color: Math.random() > 0.4 ? "#34d399" : "#a7f3d0",
+        alpha: Math.random() * 0.8 + 0.25,
+        color: Math.random() > 0.5 ? "#60a5fa" : Math.random() > 0.2 ? "#93c5fd" : "#ffffff",
       });
     }
     gStars["proj-light"] = lightStars;
 
-    // D. Compact Starburst Dwarf (proj-club)
+    // D. Compact Starburst Dwarf (proj-club) — Silvery white, icy blue, and soft golden starlight
     const clubStars = [];
     for (let i = 0; i < 48; i++) {
       const theta = Math.random() * Math.PI * 2;
@@ -384,7 +391,14 @@ export function App() {
         y: Math.sin(theta) * (r * 0.62),
         size: Math.random() * 1.5 + 0.5,
         alpha: Math.random() * 0.75 + 0.25,
-        color: Math.random() > 0.5 ? "#c084fc" : "#fef08a",
+        color:
+          Math.random() > 0.55
+            ? "#ffffff"
+            : Math.random() > 0.28
+            ? "#cbd5e1"
+            : Math.random() > 0.12
+            ? "#93c5fd"
+            : "#fef3c7",
       });
     }
     gStars["proj-club"] = clubStars;
@@ -543,9 +557,9 @@ export function App() {
       ctx.rotate(bhRot);
 
       const diskGrad = ctx.createRadialGradient(0, 0, 10, 0, 0, 48);
-      diskGrad.addColorStop(0, "rgba(56, 189, 248, 0.8)");
-      diskGrad.addColorStop(0.4, "rgba(168, 85, 247, 0.5)");
-      diskGrad.addColorStop(0.8, "rgba(6, 182, 212, 0.15)");
+      diskGrad.addColorStop(0, "rgba(254, 240, 138, 0.95)");
+      diskGrad.addColorStop(0.35, "rgba(245, 158, 11, 0.55)");
+      diskGrad.addColorStop(0.75, "rgba(56, 189, 248, 0.2)");
       diskGrad.addColorStop(1, "transparent");
 
       ctx.fillStyle = diskGrad;
@@ -557,7 +571,7 @@ export function App() {
       for (let i = 0; i < 8; i++) {
         const pAng = (i * Math.PI) / 4 + bhRot * 2;
         const pDist = 24 + (i % 3) * 8;
-        ctx.fillStyle = i % 2 === 0 ? "#38bdf8" : "#f472b6";
+        ctx.fillStyle = i % 2 === 0 ? "#fef08a" : "#38bdf8";
         ctx.beginPath();
         ctx.arc(Math.cos(pAng) * pDist, Math.sin(pAng) * (pDist * 0.45), 1.5, 0, Math.PI * 2);
         ctx.fill();
@@ -648,11 +662,11 @@ export function App() {
           ctx.setLineDash([]);
         }
 
-        // B. Diffuse interstellar gas & dust halo (realistic galactic haze)
+        // B. Diffuse interstellar gas & dust halo (realistic astronomical galactic haze)
         const haloGrad = ctx.createRadialGradient(0, 0, g.size * 0.1, 0, 0, g.size * 1.15);
-        haloGrad.addColorStop(0, g.accentColor + (isHovered ? "44" : "28"));
-        haloGrad.addColorStop(0.35, g.color + (isHovered ? "33" : "1a"));
-        haloGrad.addColorStop(0.7, g.color + "0a");
+        haloGrad.addColorStop(0, "rgba(254, 243, 199, " + (isHovered ? "0.26" : "0.15") + ")");
+        haloGrad.addColorStop(0.35, "rgba(147, 197, 253, " + (isHovered ? "0.16" : "0.08") + ")");
+        haloGrad.addColorStop(0.75, "rgba(56, 189, 248, 0.03)");
         haloGrad.addColorStop(1, "transparent");
 
         ctx.save();
@@ -664,17 +678,17 @@ export function App() {
         ctx.fill();
         ctx.restore();
 
-        // C. Morphology-specific structure (Bar, Rings, Spiral arms)
+        // C. Morphology-specific structure (Bar, Rings, Spiral arms in observed celestial colors)
         ctx.save();
         ctx.rotate(currentRot);
 
         if (g.id === "proj-loan") {
-          // Barred Spiral: Draw prominent luminous central bar
+          // Barred Spiral: Draw prominent luminous central bar in warm stellar starlight
           const barGrad = ctx.createLinearGradient(-24, 0, 24, 0);
           barGrad.addColorStop(0, "transparent");
-          barGrad.addColorStop(0.3, g.color + "aa");
+          barGrad.addColorStop(0.25, "rgba(253, 230, 138, 0.7)");
           barGrad.addColorStop(0.5, "#ffffff");
-          barGrad.addColorStop(0.7, g.color + "aa");
+          barGrad.addColorStop(0.75, "rgba(253, 230, 138, 0.7)");
           barGrad.addColorStop(1, "transparent");
 
           ctx.fillStyle = barGrad;
@@ -682,10 +696,10 @@ export function App() {
           ctx.ellipse(0, 0, 24, 4.5, 0, 0, Math.PI * 2);
           ctx.fill();
 
-          // 2 spiral arms curving off the ends of the bar
+          // 2 spiral arms curving off the ends of the bar in celestial blue starlight
           for (let arm = 0; arm < 2; arm++) {
             const startAngle = arm === 0 ? 0 : Math.PI;
-            ctx.strokeStyle = g.color + "bb";
+            ctx.strokeStyle = "rgba(125, 211, 252, 0.8)";
             ctx.lineWidth = 2.2;
             ctx.beginPath();
             for (let step = 0; step < 22; step++) {
@@ -700,10 +714,10 @@ export function App() {
             ctx.stroke();
           }
         } else if (g.id === "proj-ai") {
-          // Grand-Design 4-Arm Spiral: 4 distinct logarithmic spiral arms
+          // Grand-Design 4-Arm Spiral: 4 sweeping logarithmic arms in natural icy blue starlight
           for (let arm = 0; arm < 4; arm++) {
             const startAngle = arm * (Math.PI / 2);
-            ctx.strokeStyle = arm % 2 === 0 ? g.color + "dd" : g.accentColor + "aa";
+            ctx.strokeStyle = arm % 2 === 0 ? "rgba(147, 197, 253, 0.85)" : "rgba(186, 230, 253, 0.65)";
             ctx.lineWidth = arm % 2 === 0 ? 2.2 : 1.6;
             ctx.beginPath();
             for (let step = 0; step < 26; step++) {
@@ -718,26 +732,26 @@ export function App() {
             ctx.stroke();
           }
         } else if (g.id === "proj-light") {
-          // Resonance Ring Galaxy (Hoag's Object type): detached outer stellar ring
+          // Resonance Ring Galaxy (Hoag's Object): brilliant blue-white detached ring of young stars
           ctx.save();
           ctx.scale(1, g.tilt);
-          ctx.strokeStyle = g.color + "99";
+          ctx.strokeStyle = "rgba(96, 165, 250, 0.85)";
           ctx.lineWidth = 4.5;
           ctx.beginPath();
           ctx.arc(0, 0, 28, 0, Math.PI * 2);
           ctx.stroke();
 
-          ctx.strokeStyle = "#ffffff66";
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
           ctx.lineWidth = 1.2;
           ctx.beginPath();
           ctx.arc(0, 0, 28, 0, Math.PI * 2);
           ctx.stroke();
           ctx.restore();
         } else if (g.id === "proj-club") {
-          // Compact Starburst Dwarf: intense core with stellar emission tendrils
+          // Compact Starburst Dwarf: intense core with silvery stellar emission tendrils
           for (let arm = 0; arm < 6; arm++) {
             const theta = (arm * Math.PI) / 3;
-            ctx.strokeStyle = g.color + "66";
+            ctx.strokeStyle = "rgba(203, 213, 225, 0.55)";
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(0, 0);
@@ -758,16 +772,16 @@ export function App() {
         }
         ctx.globalAlpha = 1.0;
 
-        // E. Intense galactic nucleus
-        const nucleusGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, g.size * 0.35);
+        // E. Intense galactic nucleus (warm golden bulge of mature stars with white energetic core)
+        const nucleusGrad = ctx.createRadialGradient(0, 0, 0.8, 0, 0, g.size * 0.32);
         nucleusGrad.addColorStop(0, "#ffffff");
-        nucleusGrad.addColorStop(0.3, g.accentColor);
-        nucleusGrad.addColorStop(0.7, g.color);
+        nucleusGrad.addColorStop(0.35, g.accentColor);
+        nucleusGrad.addColorStop(0.7, "rgba(147, 197, 253, 0.35)");
         nucleusGrad.addColorStop(1, "transparent");
 
         ctx.fillStyle = nucleusGrad;
         ctx.beginPath();
-        ctx.arc(0, 0, g.size * 0.35, 0, Math.PI * 2);
+        ctx.arc(0, 0, g.size * 0.32, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.restore(); // restores rotation
@@ -779,7 +793,7 @@ export function App() {
         ctx.textAlign = "center";
         ctx.fillText(`🌌 ${g.name}`, g.x, g.y + g.size * g.tilt + 18);
 
-        ctx.fillStyle = isSelected ? "#38bdf8" : g.color;
+        ctx.fillStyle = isSelected ? "#38bdf8" : "#94a3b8";
         ctx.font = "8.5px JetBrains Mono, monospace";
         ctx.fillText(`[${g.morphology}]`, g.x, g.y + g.size * g.tilt + 30);
       });
