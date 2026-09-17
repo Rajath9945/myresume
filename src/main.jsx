@@ -260,7 +260,11 @@ const PROJECT_GALAXIES = [
 
 export function App() {
   const [viewMode, setViewMode] = useState("orrery");
-  const [isPaused, setIsPaused] = useState(false);
+  const [phoneCategory, setPhoneCategory] = useState("all");
+  const [isPhoneMinimized, setIsPhoneMinimized] = useState(false);
+  const [phoneTime, setPhoneTime] = useState(() =>
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+  );
   const [selectedItem, setSelectedItem] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [toast, setToast] = useState(null);
@@ -268,6 +272,13 @@ export function App() {
 
   const canvasRef = useRef(null);
   const hoveredIdRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPhoneTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+    }, 30000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Persistent orbital angles — NEVER reset on hover or re-render
   const anglesRef = useRef({
@@ -584,15 +595,13 @@ export function App() {
       });
 
       // 3. Increment orbital angles steadily (never reset on hover)
-      if (!isPaused) {
-        PLANETS.forEach((p) => {
-          anglesRef.current[p.id] += p.speed;
-        });
-        anglesRef.current.blackholeRotation += 0.008;
-        PROJECT_GALAXIES.forEach((g) => {
-          anglesRef.current[g.id] = (anglesRef.current[g.id] || 0) + g.spinSpeed;
-        });
-      }
+      PLANETS.forEach((p) => {
+        anglesRef.current[p.id] += p.speed;
+      });
+      anglesRef.current.blackholeRotation += 0.008;
+      PROJECT_GALAXIES.forEach((g) => {
+        anglesRef.current[g.id] = (anglesRef.current[g.id] || 0) + g.spinSpeed;
+      });
       pulseTick += 0.02;
 
       // 4. Calculate hit targets
@@ -996,7 +1005,7 @@ export function App() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, [viewMode, isPaused]); // Clean dependency: NEVER reset on hover!
+  }, [viewMode]); // Clean dependency: NEVER reset on hover!
 
   // Mouse move hover detection on static centered canvas
   const onMouseMove = (e) => {
@@ -1076,77 +1085,185 @@ export function App() {
             onClick={onClick}
           />
 
-          {/* System Index Panel (Direct Guide Showing What Everything Represents) */}
-          <aside className="system-index">
-            <div className="index-header">
-              <span className="index-title">SYSTEM DIRECTORY</span>
-              <span className="index-sub">CLICK TO SELECT</span>
-            </div>
-
-            <div className="index-group-label">Stellar Core (Degree)</div>
+          {/* Phone-Style System Directory Device */}
+          <aside className={`phone-device ${isPhoneMinimized ? "minimized" : ""}`}>
+            {/* Hardware buttons on phone edges */}
+            <div className="phone-hw-btn phone-btn-vol-up" />
+            <div className="phone-hw-btn phone-btn-vol-down" />
             <div
-              className={`index-item ${selectedItem?.id === "sun" ? "active" : ""}`}
-              onClick={() => setSelectedItem(SUN_DEGREE)}
-            >
-              <div className="index-item-left">
-                <span className="index-dot sun" />
-                <span>The Sun</span>
-              </div>
-              <span className="index-item-role">B.E. Degree (BIT)</span>
-            </div>
+              className="phone-hw-btn phone-btn-power"
+              onClick={() => setIsPhoneMinimized(true)}
+              title="Sleep / Minimize"
+            />
 
-            <div className="index-group-label">Gravitational Core (Internship)</div>
-            <div
-              className={`index-item ${selectedItem?.id === "blackhole" ? "active" : ""}`}
-              onClick={() => setSelectedItem(BLACK_HOLE_INTERNSHIP)}
-            >
-              <div className="index-item-left">
-                <span className="index-dot blackhole" />
-                <span>The Black Hole</span>
-              </div>
-              <span className="index-item-role">ConcierAI (AI Intern)</span>
-            </div>
-
-            <div className="index-group-label">Planets (Technical Skills)</div>
-            {PLANETS.map((p) => (
-              <div
-                key={p.id}
-                className={`index-item ${selectedItem?.id === p.id ? "active" : ""}`}
-                onClick={() => setSelectedItem(p)}
-              >
-                <div className="index-item-left">
-                  <span className="index-dot planet" />
-                  <span>{p.name}</span>
+            {/* Inner Phone Screen Display */}
+            <div className="phone-screen">
+              {/* Phone Status Bar with Dynamic Island Notch */}
+              <div className="phone-status-bar">
+                <span className="phone-time">{phoneTime}</span>
+                <div className="phone-dynamic-island">
+                  <span className="phone-camera-lens" />
                 </div>
-                <span className="index-item-role">Skill</span>
-              </div>
-            ))}
-
-            <div className="index-group-label">Galaxies (Working Projects)</div>
-            {PROJECT_GALAXIES.map((g) => (
-              <div
-                key={g.id}
-                className={`index-item ${selectedItem?.id === g.id ? "active" : ""}`}
-                onClick={() => setSelectedItem(g)}
-              >
-                <div className="index-item-left">
-                  <span className="index-dot galaxy" />
-                  <span>{g.name}</span>
+                <div className="phone-status-icons">
+                  <span className="phone-signal">5G</span>
+                  <span className="phone-wifi">📶</span>
+                  <span className="phone-battery">98% 🔋</span>
                 </div>
-                <span className="index-item-role">{g.morphology}</span>
               </div>
-            ))}
+
+              {/* Phone App Header */}
+              <div className="phone-app-header">
+                <div className="phone-app-title-row">
+                  <div>
+                    <h3 className="phone-app-title">Space Directory</h3>
+                    <div className="phone-app-sub">OrreryOS • 12 Active Nodes</div>
+                  </div>
+                  <button
+                    className="phone-minimize-btn"
+                    onClick={() => setIsPhoneMinimized(true)}
+                    title="Minimize Phone"
+                  >
+                    –
+                  </button>
+                </div>
+
+                {/* Segmented Filter Tabs */}
+                <div className="phone-tabs">
+                  {[
+                    { id: "all", label: "All" },
+                    { id: "core", label: "Core" },
+                    { id: "skills", label: "Skills" },
+                    { id: "projects", label: "Galaxies" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      className={`phone-tab-btn ${phoneCategory === tab.id ? "active" : ""}`}
+                      onClick={() => setPhoneCategory(tab.id)}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Scrollable Phone App List */}
+              <div className="phone-app-list">
+                {/* 1. Core Section */}
+                {(phoneCategory === "all" || phoneCategory === "core") && (
+                  <div className="phone-group">
+                    <div className="phone-group-title">Stellar Cores</div>
+
+                    {/* Sun */}
+                    <div
+                      className={`phone-row-item ${selectedItem?.id === "sun" ? "active" : ""}`}
+                      onClick={() => setSelectedItem(SUN_DEGREE)}
+                    >
+                      <div className="phone-row-icon sun-icon">☀️</div>
+                      <div className="phone-row-info">
+                        <span className="phone-row-name">The Sun</span>
+                        <span className="phone-row-detail">B.E. Degree • BIT (8.17 CGPA)</span>
+                      </div>
+                      <span className="phone-row-chevron">›</span>
+                    </div>
+
+                    {/* Black Hole */}
+                    <div
+                      className={`phone-row-item ${selectedItem?.id === "blackhole" ? "active" : ""}`}
+                      onClick={() => setSelectedItem(BLACK_HOLE_INTERNSHIP)}
+                    >
+                      <div className="phone-row-icon blackhole-icon">🕳️</div>
+                      <div className="phone-row-info">
+                        <span className="phone-row-name">The Black Hole</span>
+                        <span className="phone-row-detail">ConcierAI • Junior AI Intern</span>
+                      </div>
+                      <span className="phone-row-chevron">›</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Skills Section */}
+                {(phoneCategory === "all" || phoneCategory === "skills") && (
+                  <div className="phone-group">
+                    <div className="phone-group-title">Planets (Technical Skills)</div>
+                    {PLANETS.map((p) => {
+                      const icons = {
+                        java: "☕",
+                        ai: "🧠",
+                        dsa: "⚡",
+                        sql: "🗄️",
+                        iot: "📡",
+                        tools: "🛠️",
+                      };
+                      return (
+                        <div
+                          key={p.id}
+                          className={`phone-row-item ${selectedItem?.id === p.id ? "active" : ""}`}
+                          onClick={() => setSelectedItem(p)}
+                        >
+                          <div
+                            className="phone-row-icon planet-icon"
+                            style={{ background: `linear-gradient(135deg, ${p.color}, #0f172a)` }}
+                          >
+                            {icons[p.id] || "🪐"}
+                          </div>
+                          <div className="phone-row-info">
+                            <span className="phone-row-name">{p.name}</span>
+                            <span className="phone-row-detail">{p.meta}</span>
+                          </div>
+                          <span className="phone-row-chevron">›</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* 3. Galaxies Section */}
+                {(phoneCategory === "all" || phoneCategory === "projects") && (
+                  <div className="phone-group">
+                    <div className="phone-group-title">Galaxies (Working Projects)</div>
+                    {PROJECT_GALAXIES.map((g) => (
+                      <div
+                        key={g.id}
+                        className={`phone-row-item ${selectedItem?.id === g.id ? "active" : ""}`}
+                        onClick={() => setSelectedItem(g)}
+                      >
+                        <div
+                          className="phone-row-icon galaxy-icon"
+                          style={{
+                            background: `linear-gradient(135deg, ${g.accentColor}55, ${g.color}33)`,
+                            borderColor: g.color,
+                          }}
+                        >
+                          🌌
+                        </div>
+                        <div className="phone-row-info">
+                          <span className="phone-row-name">{g.name}</span>
+                          <span className="phone-row-detail">{g.morphology}</span>
+                        </div>
+                        <span className="phone-row-chevron">›</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Phone Home Bar Gesture Indicator */}
+              <div className="phone-bottom-bar">
+                <div className="phone-home-indicator" />
+              </div>
+            </div>
           </aside>
 
-          {/* Minimal Controls Dock (No Zooming or Moving) */}
-          <div className="controls-dock">
+          {/* Floating Expand Pill if Phone is Minimized */}
+          {isPhoneMinimized && (
             <button
-              className={`dock-btn ${isPaused ? "active" : ""}`}
-              onClick={() => setIsPaused(!isPaused)}
+              className="phone-dock-pill"
+              onClick={() => setIsPhoneMinimized(false)}
             >
-              {isPaused ? "▶ Resume Orbit" : "⏸ Pause Orbit"}
+              <span className="phone-dock-icon">📱</span>
+              <span className="phone-dock-label">Open Directory Phone</span>
             </button>
-          </div>
+          )}
 
           {/* Holographic Detail Card */}
           {selectedItem && (
