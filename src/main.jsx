@@ -29,7 +29,7 @@ const SUN_DEGREE = {
     "Core coursework in Algorithms, OS, DBMS, Networks, and OOP",
     "Student leader coordinating problem-solving activities as Code Club Team Lead",
   ],
-  radius: 20,
+  radius: 26,
   color: "#f59e0b",
 };
 
@@ -39,9 +39,9 @@ const BLACK_HOLE_INTERNSHIP = {
   name: "Junior AI Intern — ConcierAI",
   subtitle: "ConcierAI • Model Fine-Tuning & Evaluation",
   meta: "2026 – Present • AI Engineering",
-  x: -290,
-  y: -100,
-  radius: 13,
+  x: -330,
+  y: -120,
+  radius: 17,
   summary:
     "Active internship at ConcierAI working directly on applied AI systems: fine-tuning models, building benchmark evaluation pipelines, and curating dataset workflows.",
   bullets: [
@@ -58,9 +58,9 @@ const PLANETS = [
     type: "Backend Skill",
     name: "Java & Backend",
     meta: "Spring Boot • REST • MySQL",
-    orbitRadius: 65,
+    orbitRadius: 80,
     speed: 0.0003, // slow, peaceful orbit
-    radius: 8,
+    radius: 10,
     color: "#f97316",
     hasRing: true,
     techs: ["Java", "Spring Boot", "MySQL", "REST APIs", "OOP"],
@@ -77,9 +77,9 @@ const PLANETS = [
     type: "AI Skill",
     name: "AI & Machine Learning",
     meta: "Deep Learning • CNN • Python",
-    orbitRadius: 95,
+    orbitRadius: 115,
     speed: 0.00024,
-    radius: 7.5,
+    radius: 9.5,
     color: "#a855f7",
     techs: ["Python", "CNN", "Fine-Tuning", "Flask", "OpenCV"],
     summary:
@@ -95,9 +95,9 @@ const PLANETS = [
     type: "Core CS Skill",
     name: "Data Structures & DSA",
     meta: "Trees • Graphs • Dynamic Programming",
-    orbitRadius: 125,
+    orbitRadius: 150,
     speed: 0.00019,
-    radius: 7,
+    radius: 9,
     color: "#06b6d4",
     techs: ["Arrays", "Trees", "Graphs", "DP", "Complexity"],
     summary:
@@ -113,9 +113,9 @@ const PLANETS = [
     type: "Database Skill",
     name: "Database Systems & SQL",
     meta: "MySQL • Relational Schema • ACID",
-    orbitRadius: 155,
+    orbitRadius: 185,
     speed: 0.00015,
-    radius: 6.5,
+    radius: 8.5,
     color: "#eab308",
     techs: ["MySQL", "Schema Design", "Queries", "Indexing", "Normalization"],
     summary:
@@ -131,9 +131,9 @@ const PLANETS = [
     type: "Hardware & Edge",
     name: "IoT & Embedded Logic",
     meta: "Sensors • Embedded C • Automation",
-    orbitRadius: 185,
+    orbitRadius: 220,
     speed: 0.00012,
-    radius: 6.5,
+    radius: 8.5,
     color: "#10b981",
     techs: ["Embedded C", "Sensors", "Microcontrollers", "Automation"],
     summary:
@@ -149,9 +149,9 @@ const PLANETS = [
     type: "DevOps & Tools",
     name: "DevOps & Tools",
     meta: "Git • Linux CLI • Jenkins",
-    orbitRadius: 215,
+    orbitRadius: 255,
     speed: 0.00009,
-    radius: 7,
+    radius: 9,
     color: "#94a3b8",
     hasRing: true,
     techs: ["Git", "GitHub", "Linux", "Bash", "Jenkins"],
@@ -173,9 +173,9 @@ const PROJECT_GALAXIES = [
     category: "Active Backend Service",
     morphology: "Barred Spiral (SBb)",
     techs: ["Java", "Spring Boot", "MySQL", "REST API"],
-    x: 270,
-    y: 40,
-    size: 22,
+    x: 320,
+    y: 55,
+    size: 28,
     tilt: 0.68,
     spinSpeed: 0.0045,
     color: "#7dd3fc", // Observed celestial blue spiral arm starlight
@@ -196,9 +196,9 @@ const PROJECT_GALAXIES = [
     category: "Live Computer Vision",
     morphology: "Grand-Design Spiral (M101)",
     techs: ["Python", "Flask", "CNN", "OpenCV"],
-    x: 200,
-    y: -160,
-    size: 26,
+    x: 235,
+    y: -190,
+    size: 34,
     tilt: 0.85,
     spinSpeed: 0.0035,
     color: "#93c5fd", // Ethereal icy blue starlight across 4 sweeping arms
@@ -219,9 +219,9 @@ const PROJECT_GALAXIES = [
     category: "IoT Hardware Prototype",
     morphology: "Resonance Ring Galaxy (Hoag Type)",
     techs: ["IoT", "Embedded C", "Sensors", "Hardware"],
-    x: 70,
-    y: 170,
-    size: 18,
+    x: 85,
+    y: 205,
+    size: 24,
     tilt: 0.55,
     spinSpeed: 0.0028,
     color: "#60a5fa", // Brilliant ring of young blue stars (true Hoag's Object)
@@ -241,9 +241,9 @@ const PROJECT_GALAXIES = [
     category: "Developer Community",
     morphology: "Compact Starburst Core",
     techs: ["Java", "DSA Mentorship", "Contest Design"],
-    x: -190,
-    y: 150,
-    size: 15,
+    x: -230,
+    y: 180,
+    size: 20,
     tilt: 0.62,
     spinSpeed: 0.0055,
     color: "#cbd5e1", // Diamond-white & subtle celestial blue starlight
@@ -377,20 +377,20 @@ export function App() {
 
     // A. Barred Spiral (proj-loan) — Creamy golden stellar bar with icy blue spiral arm stars
     const loanStars = [];
-    for (let i = 0; i < 22; i++) {
+    for (let i = 0; i < 24; i++) {
       loanStars.push({
-        x: (Math.random() - 0.5) * 16,
-        y: (Math.random() - 0.5) * 4,
+        x: (Math.random() - 0.5) * 20,
+        y: (Math.random() - 0.5) * 5,
         size: Math.random() * 0.9 + 0.4,
         alpha: Math.random() * 0.7 + 0.3,
         color: Math.random() > 0.5 ? "#ffffff" : "#fef3c7",
       });
     }
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 46; i++) {
       const arm = i % 2 === 0 ? 0 : Math.PI;
       const t = Math.random();
       const theta = t * Math.PI * 1.4 + arm;
-      const r = 7 + Math.pow(t, 1.2) * 14 + (Math.random() - 0.5) * 2.5;
+      const r = 8 + Math.pow(t, 1.2) * 18 + (Math.random() - 0.5) * 2.8;
       loanStars.push({
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.68),
@@ -403,11 +403,11 @@ export function App() {
 
     // B. Grand-Design 4-Arm Spiral (proj-ai) — Brilliant blue-white OB associations and warm nucleus
     const aiStars = [];
-    for (let i = 0; i < 65; i++) {
+    for (let i = 0; i < 72; i++) {
       const arm = (i % 4) * (Math.PI / 2);
       const t = Math.random();
       const theta = t * Math.PI * 1.7 + arm;
-      const r = 3 + Math.pow(t, 1.1) * 22 + (Math.random() - 0.5) * 3;
+      const r = 4 + Math.pow(t, 1.15) * 28 + (Math.random() - 0.5) * 3.5;
       aiStars.push({
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.85),
@@ -427,9 +427,9 @@ export function App() {
 
     // C. Resonance Ring Galaxy (proj-light / Hoag's Object) — Golden nucleus & brilliant blue stellar ring
     const lightStars = [];
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 18; i++) {
       const theta = Math.random() * Math.PI * 2;
-      const r = Math.random() * 3.5;
+      const r = Math.random() * 4.5;
       lightStars.push({
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.55),
@@ -438,9 +438,9 @@ export function App() {
         color: Math.random() > 0.5 ? "#fef08a" : "#fcd34d",
       });
     }
-    for (let i = 0; i < 44; i++) {
+    for (let i = 0; i < 50; i++) {
       const theta = Math.random() * Math.PI * 2;
-      const r = 15 + (Math.random() - 0.5) * 2.5;
+      const r = 20 + (Math.random() - 0.5) * 3;
       lightStars.push({
         x: Math.cos(theta) * r,
         y: Math.sin(theta) * (r * 0.55),
@@ -453,9 +453,9 @@ export function App() {
 
     // D. Compact Starburst Dwarf (proj-club) — Silvery white, icy blue, and soft golden starlight
     const clubStars = [];
-    for (let i = 0; i < 36; i++) {
+    for (let i = 0; i < 40; i++) {
       const theta = Math.random() * Math.PI * 2;
-      const r = Math.sqrt(Math.random()) * 10;
+      const r = Math.sqrt(Math.random()) * 13;
       clubStars.push({
         x: Math.cos(theta) * (r * 1.3),
         y: Math.sin(theta) * (r * 0.62),
@@ -645,12 +645,12 @@ export function App() {
       ctx.fill();
 
       ctx.fillStyle = "#fff";
-      ctx.font = "bold 8.5px Orbitron, sans-serif";
+      ctx.font = "bold 9.5px Orbitron, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("B.E. DEGREE (BIT)", 0, sunRad + 13);
+      ctx.fillText("B.E. DEGREE (BIT)", 0, sunRad + 14);
       ctx.fillStyle = "#94a3b8";
-      ctx.font = "7.5px JetBrains Mono, monospace";
-      ctx.fillText("CGPA 8.17", 0, sunRad + 22);
+      ctx.font = "8px JetBrains Mono, monospace";
+      ctx.fillText("CGPA 8.17", 0, sunRad + 24);
 
       // 6. Draw THE REALISTIC BLACK HOLE (ConcierAI Gravitational Singularity)
       const bh = targets.blackhole;
@@ -779,12 +779,12 @@ export function App() {
 
       // Black hole label
       ctx.fillStyle = bhIsSelected || bhIsHovered ? "#38bdf8" : "#e2e8f0";
-      ctx.font = "bold 8.5px JetBrains Mono, monospace";
+      ctx.font = "bold 9.5px JetBrains Mono, monospace";
       ctx.textAlign = "center";
-      ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 22);
+      ctx.fillText("🕳️ ConcierAI (AI Intern)", bh.x, bh.y + bh.radius + 24);
       ctx.fillStyle = "#94a3b8";
-      ctx.font = "7.5px JetBrains Mono, monospace";
-      ctx.fillText("[Gravitational Singularity]", bh.x, bh.y + bh.radius + 32);
+      ctx.font = "8px JetBrains Mono, monospace";
+      ctx.fillText("[Gravitational Singularity]", bh.x, bh.y + bh.radius + 35);
 
       // 7. Draw PLANETS (Core Skills)
       PLANETS.forEach((p) => {
@@ -825,9 +825,9 @@ export function App() {
         }
 
         ctx.fillStyle = isSelected ? "#38bdf8" : "#f1f5f9";
-        ctx.font = "8.5px JetBrains Mono, monospace";
+        ctx.font = "9px JetBrains Mono, monospace";
         ctx.textAlign = "center";
-        ctx.fillText(p.name, pos.x, pos.y + p.radius + 11);
+        ctx.fillText(p.name, pos.x, pos.y + p.radius + 12);
       });
 
       // 8. Draw PROJECT GALAXIES (Unique astronomical morphologies, star clusters, and dust halos)
@@ -872,7 +872,7 @@ export function App() {
 
         if (g.id === "proj-loan") {
           // Barred Spiral: Draw prominent luminous central bar in warm stellar starlight
-          const barGrad = ctx.createLinearGradient(-13, 0, 13, 0);
+          const barGrad = ctx.createLinearGradient(-16, 0, 16, 0);
           barGrad.addColorStop(0, "transparent");
           barGrad.addColorStop(0.25, "rgba(253, 230, 138, 0.7)");
           barGrad.addColorStop(0.5, "#ffffff");
@@ -881,19 +881,19 @@ export function App() {
 
           ctx.fillStyle = barGrad;
           ctx.beginPath();
-          ctx.ellipse(0, 0, 13, 2.5, 0, 0, Math.PI * 2);
+          ctx.ellipse(0, 0, 16, 3, 0, 0, Math.PI * 2);
           ctx.fill();
 
           // 2 spiral arms curving off the ends of the bar in celestial blue starlight
           for (let arm = 0; arm < 2; arm++) {
             const startAngle = arm === 0 ? 0 : Math.PI;
             ctx.strokeStyle = "rgba(125, 211, 252, 0.8)";
-            ctx.lineWidth = 1.6;
+            ctx.lineWidth = 1.7;
             ctx.beginPath();
             for (let step = 0; step < 20; step++) {
               const t = step / 20;
               const theta = startAngle + t * Math.PI * 1.35;
-              const r = 7 + Math.pow(t, 1.2) * 14;
+              const r = 8 + Math.pow(t, 1.2) * 18;
               const ax = Math.cos(theta) * r;
               const ay = Math.sin(theta) * (r * g.tilt);
               if (step === 0) ctx.moveTo(ax, ay);
@@ -906,12 +906,12 @@ export function App() {
           for (let arm = 0; arm < 4; arm++) {
             const startAngle = arm * (Math.PI / 2);
             ctx.strokeStyle = arm % 2 === 0 ? "rgba(147, 197, 253, 0.85)" : "rgba(186, 230, 253, 0.65)";
-            ctx.lineWidth = arm % 2 === 0 ? 1.6 : 1.2;
+            ctx.lineWidth = arm % 2 === 0 ? 1.7 : 1.3;
             ctx.beginPath();
-            for (let step = 0; step < 22; step++) {
-              const t = step / 22;
+            for (let step = 0; step < 24; step++) {
+              const t = step / 24;
               const theta = startAngle + t * Math.PI * 1.65;
-              const r = 3 + Math.pow(t, 1.15) * 22;
+              const r = 4 + Math.pow(t, 1.15) * 28;
               const ax = Math.cos(theta) * r;
               const ay = Math.sin(theta) * (r * g.tilt);
               if (step === 0) ctx.moveTo(ax, ay);
@@ -924,15 +924,15 @@ export function App() {
           ctx.save();
           ctx.scale(1, g.tilt);
           ctx.strokeStyle = "rgba(96, 165, 250, 0.85)";
-          ctx.lineWidth = 3.2;
+          ctx.lineWidth = 3.6;
           ctx.beginPath();
-          ctx.arc(0, 0, 15, 0, Math.PI * 2);
+          ctx.arc(0, 0, 20, 0, Math.PI * 2);
           ctx.stroke();
 
           ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
-          ctx.lineWidth = 1.0;
+          ctx.lineWidth = 1.2;
           ctx.beginPath();
-          ctx.arc(0, 0, 15, 0, Math.PI * 2);
+          ctx.arc(0, 0, 20, 0, Math.PI * 2);
           ctx.stroke();
           ctx.restore();
         } else if (g.id === "proj-club") {
@@ -940,10 +940,10 @@ export function App() {
           for (let arm = 0; arm < 6; arm++) {
             const theta = (arm * Math.PI) / 3;
             ctx.strokeStyle = "rgba(203, 213, 225, 0.55)";
-            ctx.lineWidth = 1.1;
+            ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(Math.cos(theta) * 11, Math.sin(theta) * 11 * g.tilt);
+            ctx.lineTo(Math.cos(theta) * 14, Math.sin(theta) * 14 * g.tilt);
             ctx.stroke();
           }
         }
@@ -977,13 +977,13 @@ export function App() {
 
         // F. Realistic galaxy identification label & morphology
         ctx.fillStyle = isSelected || isHovered ? "#ffffff" : "#cbd5e1";
-        ctx.font = "bold 8.5px JetBrains Mono, monospace";
+        ctx.font = "bold 9.5px JetBrains Mono, monospace";
         ctx.textAlign = "center";
-        ctx.fillText(`🌌 ${g.name}`, g.x, g.y + g.size * g.tilt + 13);
+        ctx.fillText(`🌌 ${g.name}`, g.x, g.y + g.size * g.tilt + 15);
 
         ctx.fillStyle = isSelected ? "#38bdf8" : "#94a3b8";
-        ctx.font = "7.5px JetBrains Mono, monospace";
-        ctx.fillText(`[${g.morphology}]`, g.x, g.y + g.size * g.tilt + 23);
+        ctx.font = "8px JetBrains Mono, monospace";
+        ctx.fillText(`[${g.morphology}]`, g.x, g.y + g.size * g.tilt + 25);
       });
 
       ctx.restore();
