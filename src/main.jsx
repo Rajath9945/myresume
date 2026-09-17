@@ -171,10 +171,15 @@ const PROJECT_GALAXIES = [
     type: "Working Project",
     name: "Loan Management Backend",
     category: "Active Backend Service",
+    morphology: "Barred Spiral (SBb)",
     techs: ["Java", "Spring Boot", "MySQL", "REST API"],
     x: 370,
     y: -210,
-    color: "#60a5fa",
+    size: 46,
+    tilt: 0.68,
+    spinSpeed: 0.0045,
+    color: "#38bdf8",
+    accentColor: "#93c5fd",
     summary:
       "A complete REST backend orchestrating loan applications, customer profiles, validation logic, and repayment schedules.",
     bullets: [
@@ -189,10 +194,15 @@ const PROJECT_GALAXIES = [
     type: "Working Project",
     name: "AI Real-Time Monitoring",
     category: "Live Computer Vision",
+    morphology: "Grand-Design Spiral (M101)",
     techs: ["Python", "Flask", "CNN", "OpenCV"],
     x: 380,
     y: 220,
+    size: 54, // Largest majestic multi-arm spiral
+    tilt: 0.85,
+    spinSpeed: 0.0035,
     color: "#f472b6",
+    accentColor: "#c084fc",
     summary:
       "Deep learning monitoring tool processing live video streams to measure student attention and engagement levels in real time.",
     bullets: [
@@ -207,10 +217,15 @@ const PROJECT_GALAXIES = [
     type: "Working Project",
     name: "Smart Autonomous Streetlight",
     category: "IoT Hardware Prototype",
+    morphology: "Resonance Ring Galaxy (Hoag Type)",
     techs: ["IoT", "Embedded C", "Sensors", "Hardware"],
     x: -370,
     y: 220,
-    color: "#4ade80",
+    size: 38,
+    tilt: 0.55,
+    spinSpeed: 0.0028,
+    color: "#34d399",
+    accentColor: "#6ee7b7",
     summary:
       "An automated street lighting prototype that dims during inactivity and brightens when approaching traffic or pedestrians are detected.",
     bullets: [
@@ -224,10 +239,15 @@ const PROJECT_GALAXIES = [
     type: "Working Project",
     name: "BIT Code Club Platform",
     category: "Developer Community",
+    morphology: "Compact Starburst Core",
     techs: ["Java", "DSA Mentorship", "Contest Design"],
     x: 0,
     y: -360,
+    size: 32, // Compact intense galaxy
+    tilt: 0.62,
+    spinSpeed: 0.0055,
     color: "#c084fc",
+    accentColor: "#fde047",
     summary:
       "Student coding platform and mentorship program at Bangalore Institute of Technology where Rajath coordinates technical problem-solving.",
     bullets: [
@@ -258,13 +278,18 @@ export function App() {
     iot: 5.6,
     tools: 0.9,
     blackholeRotation: 0,
-    galaxyRotation: 0,
+    "proj-loan": 0.2,
+    "proj-ai": 0.8,
+    "proj-light": 1.5,
+    "proj-club": 2.1,
   });
 
   const backgroundStarsRef = useRef([]);
+  const galaxyStarsRef = useRef({});
 
-  // Generate realistic space background once on mount
+  // Generate realistic space background and galaxy stellar clusters once on mount
   useEffect(() => {
+    // 1. Deep space background field
     const stars = [];
     for (let i = 0; i < 220; i++) {
       stars.push({
@@ -276,6 +301,95 @@ export function App() {
       });
     }
     backgroundStarsRef.current = stars;
+
+    // 2. Individual star clusters for each galaxy according to its astronomical morphology
+    const gStars = {};
+
+    // A. Barred Spiral (proj-loan)
+    const loanStars = [];
+    for (let i = 0; i < 26; i++) {
+      loanStars.push({
+        x: (Math.random() - 0.5) * 32,
+        y: (Math.random() - 0.5) * 8,
+        size: Math.random() * 1.5 + 0.6,
+        alpha: Math.random() * 0.7 + 0.3,
+        color: Math.random() > 0.4 ? "#ffffff" : "#93c5fd",
+      });
+    }
+    for (let i = 0; i < 50; i++) {
+      const arm = i % 2 === 0 ? 0 : Math.PI;
+      const t = Math.random();
+      const theta = t * Math.PI * 1.4 + arm;
+      const r = 14 + Math.pow(t, 1.2) * 28 + (Math.random() - 0.5) * 5;
+      loanStars.push({
+        x: Math.cos(theta) * r,
+        y: Math.sin(theta) * (r * 0.68),
+        size: Math.random() * 1.6 + 0.5,
+        alpha: Math.random() * 0.75 + 0.25,
+        color: Math.random() > 0.5 ? "#38bdf8" : "#e0f2fe",
+      });
+    }
+    gStars["proj-loan"] = loanStars;
+
+    // B. Grand-Design 4-Arm Spiral (proj-ai) - Largest majestic galaxy
+    const aiStars = [];
+    for (let i = 0; i < 85; i++) {
+      const arm = (i % 4) * (Math.PI / 2);
+      const t = Math.random();
+      const theta = t * Math.PI * 1.7 + arm;
+      const r = 6 + Math.pow(t, 1.1) * 44 + (Math.random() - 0.5) * 6;
+      aiStars.push({
+        x: Math.cos(theta) * r,
+        y: Math.sin(theta) * (r * 0.85),
+        size: Math.random() * 1.8 + 0.6,
+        alpha: Math.random() * 0.8 + 0.2,
+        color: Math.random() > 0.6 ? "#f472b6" : Math.random() > 0.3 ? "#c084fc" : "#ffffff",
+      });
+    }
+    gStars["proj-ai"] = aiStars;
+
+    // C. Resonance Ring Galaxy (proj-light)
+    const lightStars = [];
+    for (let i = 0; i < 18; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const r = Math.random() * 7;
+      lightStars.push({
+        x: Math.cos(theta) * r,
+        y: Math.sin(theta) * (r * 0.55),
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.8 + 0.2,
+        color: "#fef08a",
+      });
+    }
+    for (let i = 0; i < 54; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const r = 28 + (Math.random() - 0.5) * 6;
+      lightStars.push({
+        x: Math.cos(theta) * r,
+        y: Math.sin(theta) * (r * 0.55),
+        size: Math.random() * 1.6 + 0.6,
+        alpha: Math.random() * 0.75 + 0.25,
+        color: Math.random() > 0.4 ? "#34d399" : "#a7f3d0",
+      });
+    }
+    gStars["proj-light"] = lightStars;
+
+    // D. Compact Starburst Dwarf (proj-club)
+    const clubStars = [];
+    for (let i = 0; i < 48; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const r = Math.sqrt(Math.random()) * 20;
+      clubStars.push({
+        x: Math.cos(theta) * (r * 1.3),
+        y: Math.sin(theta) * (r * 0.62),
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.75 + 0.25,
+        color: Math.random() > 0.5 ? "#c084fc" : "#fef08a",
+      });
+    }
+    gStars["proj-club"] = clubStars;
+
+    galaxyStarsRef.current = gStars;
   }, []);
 
   const showToast = (msg) => {
@@ -353,7 +467,9 @@ export function App() {
           anglesRef.current[p.id] += p.speed;
         });
         anglesRef.current.blackholeRotation += 0.008;
-        anglesRef.current.galaxyRotation += 0.006;
+        PROJECT_GALAXIES.forEach((g) => {
+          anglesRef.current[g.id] = (anglesRef.current[g.id] || 0) + g.spinSpeed;
+        });
       }
       pulseTick += 0.02;
 
@@ -379,7 +495,7 @@ export function App() {
 
       // Project Galaxies coordinates
       PROJECT_GALAXIES.forEach((g) => {
-        targets[g.id] = { x: g.x, y: g.y, radius: 24, data: g };
+        targets[g.id] = { x: g.x, y: g.y, radius: g.size * 0.85, data: g };
       });
 
       canvas._targets = targets;
@@ -512,59 +628,160 @@ export function App() {
         ctx.fillText(p.name, pos.x, pos.y + p.radius + 14);
       });
 
-      // 8. Draw PROJECT GALAXIES (Swirling active mini-galaxies)
-      const galRot = anglesRef.current.galaxyRotation;
-
+      // 8. Draw PROJECT GALAXIES (Unique astronomical morphologies, star clusters, and dust halos)
       PROJECT_GALAXIES.forEach((g) => {
         const isHovered = hoveredItem?.id === g.id;
         const isSelected = selectedItem?.id === g.id;
+        const currentRot = anglesRef.current[g.id] || 0;
 
         ctx.save();
         ctx.translate(g.x, g.y);
-        ctx.rotate(galRot);
 
-        // Swirling galaxy arms
-        for (let arm = 0; arm < 2; arm++) {
-          const armOffset = arm * Math.PI;
-          ctx.strokeStyle = g.color + "99";
-          ctx.lineWidth = 1.8;
+        // A. Selection / hover highlight aura
+        if (isSelected || isHovered) {
           ctx.beginPath();
-
-          for (let step = 0; step < 25; step++) {
-            const theta = (step / 25) * Math.PI * 1.6 + armOffset;
-            const dist = 5 + step * 1.1;
-            const gx = Math.cos(theta) * dist;
-            const gy = Math.sin(theta) * (dist * 0.65);
-
-            if (step === 0) ctx.moveTo(gx, gy);
-            else ctx.lineTo(gx, gy);
-
-            // Particle nodes along arms
-            if (step % 5 === 0) {
-              ctx.fillStyle = "#ffffff";
-              ctx.fillRect(gx - 1, gy - 1, 2, 2);
-            }
-          }
+          ctx.ellipse(0, 0, g.size * 1.25, g.size * 1.25 * g.tilt, currentRot, 0, Math.PI * 2);
+          ctx.strokeStyle = isSelected ? "#38bdf8" : "rgba(56, 189, 248, 0.5)";
+          ctx.lineWidth = isSelected ? 2 : 1.2;
+          ctx.setLineDash([4, 4]);
           ctx.stroke();
+          ctx.setLineDash([]);
         }
 
-        // Luminous galaxy core
-        const coreGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 12);
-        coreGrad.addColorStop(0, "#ffffff");
-        coreGrad.addColorStop(0.5, g.color);
-        coreGrad.addColorStop(1, "transparent");
-        ctx.fillStyle = coreGrad;
-        ctx.beginPath();
-        ctx.arc(0, 0, 12, 0, Math.PI * 2);
-        ctx.fill();
+        // B. Diffuse interstellar gas & dust halo (realistic galactic haze)
+        const haloGrad = ctx.createRadialGradient(0, 0, g.size * 0.1, 0, 0, g.size * 1.15);
+        haloGrad.addColorStop(0, g.accentColor + (isHovered ? "44" : "28"));
+        haloGrad.addColorStop(0.35, g.color + (isHovered ? "33" : "1a"));
+        haloGrad.addColorStop(0.7, g.color + "0a");
+        haloGrad.addColorStop(1, "transparent");
 
+        ctx.save();
+        ctx.rotate(currentRot * 0.3);
+        ctx.scale(1, g.tilt);
+        ctx.fillStyle = haloGrad;
+        ctx.beginPath();
+        ctx.arc(0, 0, g.size * 1.15, 0, Math.PI * 2);
+        ctx.fill();
         ctx.restore();
 
-        // Galaxy label
-        ctx.fillStyle = isSelected || isHovered ? "#fff" : "#cbd5e1";
+        // C. Morphology-specific structure (Bar, Rings, Spiral arms)
+        ctx.save();
+        ctx.rotate(currentRot);
+
+        if (g.id === "proj-loan") {
+          // Barred Spiral: Draw prominent luminous central bar
+          const barGrad = ctx.createLinearGradient(-24, 0, 24, 0);
+          barGrad.addColorStop(0, "transparent");
+          barGrad.addColorStop(0.3, g.color + "aa");
+          barGrad.addColorStop(0.5, "#ffffff");
+          barGrad.addColorStop(0.7, g.color + "aa");
+          barGrad.addColorStop(1, "transparent");
+
+          ctx.fillStyle = barGrad;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 24, 4.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 2 spiral arms curving off the ends of the bar
+          for (let arm = 0; arm < 2; arm++) {
+            const startAngle = arm === 0 ? 0 : Math.PI;
+            ctx.strokeStyle = g.color + "bb";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            for (let step = 0; step < 22; step++) {
+              const t = step / 22;
+              const theta = startAngle + t * Math.PI * 1.35;
+              const r = 14 + Math.pow(t, 1.2) * 26;
+              const ax = Math.cos(theta) * r;
+              const ay = Math.sin(theta) * (r * g.tilt);
+              if (step === 0) ctx.moveTo(ax, ay);
+              else ctx.lineTo(ax, ay);
+            }
+            ctx.stroke();
+          }
+        } else if (g.id === "proj-ai") {
+          // Grand-Design 4-Arm Spiral: 4 distinct logarithmic spiral arms
+          for (let arm = 0; arm < 4; arm++) {
+            const startAngle = arm * (Math.PI / 2);
+            ctx.strokeStyle = arm % 2 === 0 ? g.color + "dd" : g.accentColor + "aa";
+            ctx.lineWidth = arm % 2 === 0 ? 2.2 : 1.6;
+            ctx.beginPath();
+            for (let step = 0; step < 26; step++) {
+              const t = step / 26;
+              const theta = startAngle + t * Math.PI * 1.65;
+              const r = 7 + Math.pow(t, 1.15) * 44;
+              const ax = Math.cos(theta) * r;
+              const ay = Math.sin(theta) * (r * g.tilt);
+              if (step === 0) ctx.moveTo(ax, ay);
+              else ctx.lineTo(ax, ay);
+            }
+            ctx.stroke();
+          }
+        } else if (g.id === "proj-light") {
+          // Resonance Ring Galaxy (Hoag's Object type): detached outer stellar ring
+          ctx.save();
+          ctx.scale(1, g.tilt);
+          ctx.strokeStyle = g.color + "99";
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.arc(0, 0, 28, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.strokeStyle = "#ffffff66";
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(0, 0, 28, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        } else if (g.id === "proj-club") {
+          // Compact Starburst Dwarf: intense core with stellar emission tendrils
+          for (let arm = 0; arm < 6; arm++) {
+            const theta = (arm * Math.PI) / 3;
+            ctx.strokeStyle = g.color + "66";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(Math.cos(theta) * 20, Math.sin(theta) * 20 * g.tilt);
+            ctx.stroke();
+          }
+        }
+
+        // D. Individual star particles from precomputed galaxy star cluster
+        const stars = galaxyStarsRef.current[g.id] || [];
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = s.alpha * (isHovered ? 1.0 : 0.85);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1.0;
+
+        // E. Intense galactic nucleus
+        const nucleusGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, g.size * 0.35);
+        nucleusGrad.addColorStop(0, "#ffffff");
+        nucleusGrad.addColorStop(0.3, g.accentColor);
+        nucleusGrad.addColorStop(0.7, g.color);
+        nucleusGrad.addColorStop(1, "transparent");
+
+        ctx.fillStyle = nucleusGrad;
+        ctx.beginPath();
+        ctx.arc(0, 0, g.size * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore(); // restores rotation
+        ctx.restore(); // restores translation
+
+        // F. Realistic galaxy identification label & morphology
+        ctx.fillStyle = isSelected || isHovered ? "#ffffff" : "#cbd5e1";
         ctx.font = "bold 10px JetBrains Mono, monospace";
         ctx.textAlign = "center";
-        ctx.fillText(`🌌 ${g.name}`, g.x, g.y + 24);
+        ctx.fillText(`🌌 ${g.name}`, g.x, g.y + g.size * g.tilt + 18);
+
+        ctx.fillStyle = isSelected ? "#38bdf8" : g.color;
+        ctx.font = "8.5px JetBrains Mono, monospace";
+        ctx.fillText(`[${g.morphology}]`, g.x, g.y + g.size * g.tilt + 30);
       });
 
       ctx.restore();
@@ -714,7 +931,7 @@ export function App() {
                   <span className="index-dot galaxy" />
                   <span>{g.name}</span>
                 </div>
-                <span className="index-item-role">Project</span>
+                <span className="index-item-role">{g.morphology}</span>
               </div>
             ))}
           </aside>
@@ -745,6 +962,17 @@ export function App() {
                   ✕
                 </button>
               </div>
+
+              {selectedItem.morphology && (
+                <div className="detail-meta-row">
+                  <span
+                    className="detail-meta-pill"
+                    style={{ borderColor: selectedItem.color + "aa", color: selectedItem.color }}
+                  >
+                    🌌 {selectedItem.morphology} • Size: {selectedItem.size}px
+                  </span>
+                </div>
+              )}
 
               {selectedItem.meta && (
                 <div className="detail-meta-row">

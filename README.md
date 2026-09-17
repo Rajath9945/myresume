@@ -13,17 +13,18 @@ An interactive space-themed developer portfolio built in React with HTML5 Canvas
   - Database Systems & SQL (Schema Design, Query Optimization, ACID)
   - IoT & Embedded Logic (Sensors, Microcontrollers, Automation)
   - DevOps & Tools (Git, GitHub, Linux, Jenkins)
-- **🌌 Project Galaxies (Working Systems)**:
-  - 🌌 **Loan Management Backend** (Java, Spring Boot, MySQL REST API)
-  - 🌌 **AI Real-Time Monitoring** (Flask, CNN, OpenCV 30+ FPS telemetry)
-  - 🌌 **Smart Autonomous Streetlight Grid** (IoT, Sensors, 60% energy savings)
-  - 🌌 **BIT Code Club Platform** (Team Lead, DSA mentoring & contest curation)
+- **🌌 Realistic Project Galaxies (Varying Sizes & Astronomical Morphologies)**:
+  - 🌌 **Multi-Agent Autonomous Debate** (`54px` Grand-Design Spiral Sc • Ollama, LangChain, FAISS)
+  - 🌌 **Automated Loan Risk Engine** (`46px` Barred Spiral SBa • Java, Spring Boot, MySQL)
+  - 🌌 **Smart Adaptive Streetlight Grid** (`38px` Resonance Ring Galaxy • IoT, Embedded C, Sensors)
+  - 🌌 **BIT Code Club Platform** (`32px` Compact Starburst Core • Java, DSA Mentorship)
 
 ## Features & Controls
 
-- **Smooth Orbital Motion**: Fixed mouse hover jitter with persistent angle references and slow orbital motion.
+- **Fixed Orbital Orrery**: Centered canvas view with locked camera to ensure stable exploration without jitter or accidental panning/zooming.
+- **Realistic Astrophysical Morphologies**: Galaxies render with unique morphological features (stellar bars, detached resonance rings, logarithmic spiral arms, star clusters, and diffuse gas halos).
 - **System Directory**: Interactive on-screen index allowing visitors to see what each celestial body represents and target it with one click.
-- **Controls**: Pause / Resume, Zoom In / Out, and Center View.
+- **Controls**: Pause / Resume slow orbital motion.
 - **Dual View**: Toggle between full **Orrery View** and **Summary Dossier**.
 
 ## Development
